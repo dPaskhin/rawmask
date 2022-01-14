@@ -1,0 +1,7 @@
+[production]
+>= 1%
+ie 11
+not dead
+
+[development]
+chrome >= 87
