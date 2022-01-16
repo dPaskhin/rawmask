@@ -17,11 +17,15 @@ export class MaskedInput {
     this.init();
   }
 
-  public on<Name extends keyof HTMLElementEventMap = keyof HTMLElementEventMap>(
+  public get clearValue(): string {
+    return this.chars.mutableStringify();
+  }
+
+  public on<Name extends keyof HTMLElementEventMap>(
     name: Name,
-    handler: (event: HTMLElementEventMap[Name]) => void,
+    handler: (masked: MaskedInput, event: HTMLElementEventMap[Name]) => void,
   ): MaskedInput {
-    this.listeners.on(name, handler);
+    this.listeners.on(name, (event) => handler(this, event));
 
     return this;
   }

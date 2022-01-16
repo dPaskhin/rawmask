@@ -32,6 +32,22 @@ export class Chars {
     return this.chars.map(({ value }) => value).join('');
   }
 
+  public mutableStringify(): string {
+    const result: string[] = [];
+
+    // eslint-disable-next-line no-restricted-syntax
+    for (const char of this.chars) {
+      if (char.isPermanent || char.value === this.inputMask.maskPlaceholder) {
+        // eslint-disable-next-line no-continue
+        continue;
+      }
+
+      result.push(char.value);
+    }
+
+    return result.join('');
+  }
+
   public charAt(index: number): IChar | undefined {
     return this.chars[index];
   }
