@@ -131,7 +131,9 @@
       }
     ],
     "unicorn/prevent-abbreviations": "off",
-    "unicorn/no-null": "off"
+    "unicorn/no-null": "off",
+    "no-restricted-syntax": ["error", "WithStatement"],
+    "no-continue": "off"
   },
   "overrides": [
     {
