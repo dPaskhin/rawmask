@@ -23,9 +23,13 @@ export class MaskedInput {
 
   public on<Name extends keyof HTMLElementEventMap>(
     name: Name,
-    handler: (masked: MaskedInput, event: HTMLElementEventMap[Name]) => void,
+    handler: (
+      this: MaskedInput,
+      masked: MaskedInput,
+      event: HTMLElementEventMap[Name],
+    ) => void,
   ): MaskedInput {
-    this.listeners.on(name, (event) => handler(this, event));
+    this.listeners.on(name, (event) => handler.call(this, this, event));
 
     return this;
   }
