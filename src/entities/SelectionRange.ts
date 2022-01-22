@@ -23,49 +23,23 @@ export class SelectionRange {
     };
   }
 
-  public set range({ start, end }: ISelectionRange) {
-    requestAnimationFrame(() => {
-      this.$input.setSelectionRange(start, end);
-    });
+  private set range({ start, end }: ISelectionRange) {
+    this.$input.setSelectionRange(start, end);
   }
 
-  public safeRangeSetter(value?: ISelectionRange | number): void {
-    if (value === undefined) {
-      this.range = {
-        start: this.range.start,
-        end: this.range.end,
-      };
-
-      return;
-    }
-
-    if (typeof value === 'number') {
-      this.range = {
-        start: this.getSafeSelectionPoint(value),
-        end: this.getSafeSelectionPoint(value),
-      };
-
-      return;
-    }
-
-    this.range = value;
-  }
-
-  public syncPrevious(): void {
-    this.previous = this.range;
-  }
-
-  public safePreviousSetter(value?: number): void {
-    if (value === undefined) {
-      this.previous = this.range;
-
-      return;
-    }
-
+  public update(value: number): void {
+    this.range = {
+      start: this.getSafeSelectionPoint(value),
+      end: this.getSafeSelectionPoint(value),
+    };
     this.previous = {
       start: this.getSafeSelectionPoint(value),
       end: this.getSafeSelectionPoint(value),
     };
+  }
+
+  public syncPrevious(): void {
+    this.previous = this.range;
   }
 
   private getSafeSelectionPoint(value: number): number {
