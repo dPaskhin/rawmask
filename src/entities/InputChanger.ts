@@ -12,7 +12,7 @@ export class InputChanger {
     private readonly inputMask: InputMask,
   ) {}
 
-  public processSingleChange(): number | undefined {
+  public processSingleChange(): number {
     const rawValue = [...this.inputValue.value];
     const prevCursorPosition = this.selectionRange.previous.start;
     const curCursorPosition = this.selectionRange.range.start;
@@ -44,13 +44,13 @@ export class InputChanger {
     if (curCursorPosition === prevCursorPosition) {
       this.deleteCharValuesFromChars([curCursorPosition]);
 
-      return undefined;
+      return curCursorPosition;
     }
 
     const charToDelete = this.chars.charAt(curCursorPosition);
 
     if (!charToDelete) {
-      return undefined;
+      return curCursorPosition;
     }
 
     const deleteCharIndexes = [curCursorPosition];
@@ -70,7 +70,7 @@ export class InputChanger {
       : charToDelete.nearMutable.left;
   }
 
-  public processMultiChange(): number | undefined {
+  public processMultiChange(): number {
     const deleteRange = createArrayFromRange([
       this.selectionRange.previous.start,
       this.selectionRange.previous.end,
