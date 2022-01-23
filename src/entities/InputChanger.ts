@@ -1,19 +1,18 @@
 import { createArrayFromRange } from '@src/utils/createArrayFromRange';
 import { Chars } from '@src/entities/Chars';
 import { SelectionRange } from '@src/entities/SelectionRange';
-import { InputValue } from '@src/entities/InputValue';
 import { InputMask } from '@src/entities/InputMask';
 
 export class InputChanger {
   public constructor(
+    private readonly $input: HTMLInputElement,
     private readonly chars: Chars,
     private readonly selectionRange: SelectionRange,
-    private readonly inputValue: InputValue,
     private readonly inputMask: InputMask,
   ) {}
 
   public processSingleChange(): number {
-    const rawValue = [...this.inputValue.value];
+    const rawValue = [...this.$input.value];
     const prevCursorPosition = this.selectionRange.previous.start;
     const curCursorPosition = this.selectionRange.range.start;
 
@@ -78,7 +77,7 @@ export class InputChanger {
 
     this.deleteCharValuesFromChars(deleteRange);
 
-    const rawValue = [...this.inputValue.value];
+    const rawValue = [...this.$input.value];
     const valuesDiffLength = rawValue.length - this.chars.chars.length;
 
     const diff = rawValue.slice(

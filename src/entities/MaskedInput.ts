@@ -1,16 +1,15 @@
 import { InputMask } from '@src/entities/InputMask';
 import { Chars } from '@src/entities/Chars';
 import { SelectionRange } from '@src/entities/SelectionRange';
-import { InputValue } from '@src/entities/InputValue';
 import { InputChanger } from '@src/entities/InputChanger';
 import { InputListeners } from '@src/entities/InputListeners';
 
 export class MaskedInput {
   public constructor(
+    private readonly $input: HTMLInputElement,
     private readonly inputMask: InputMask,
     private readonly chars: Chars,
     private readonly selectionRange: SelectionRange,
-    private readonly value: InputValue,
     private readonly changer: InputChanger,
     private readonly listeners: InputListeners,
   ) {
@@ -40,11 +39,11 @@ export class MaskedInput {
 
   public destroy(): void {
     this.listeners.destroy();
-    this.value.value = '';
+    this.$input.value = '';
   }
 
   private init(): void {
     this.listeners.init();
-    this.value.value = this.chars.stringify();
+    this.$input.value = this.chars.stringify();
   }
 }
