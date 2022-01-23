@@ -260,6 +260,17 @@
       "rules": {
         "unicorn/filename-case": "off"
       }
+    },
+    {
+      "env": {
+        "jest": true
+      },
+      "files": [
+        "*.test.ts"
+      ],
+      "rules": {
+        "sonarjs/no-duplicate-string": "off"
+      }
     }
   ]
 }

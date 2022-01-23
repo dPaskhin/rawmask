@@ -18,11 +18,15 @@
       "@src/*": [
         "./src/*"
       ]
-    }
+    },
+    "types": [
+      "jest"
+    ]
   },
   "include": [
     "**/*.ts",
-    "**/*.js"
+    "**/*.js",
+    "**/*.cjs"
   ],
   "exclude": [
     "node_modules"
