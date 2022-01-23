@@ -40,9 +40,11 @@ export class MaskedInput {
 
   public destroy(): void {
     this.listeners.destroy();
+    this.value.value = '';
   }
 
   private init(): void {
     this.listeners.init();
+    this.value.value = this.chars.stringify();
   }
 }

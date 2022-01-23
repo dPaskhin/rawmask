@@ -22,8 +22,16 @@ export class Chars {
     '*': /./,
   };
 
-  public constructor(private readonly inputMask: InputMask) {
-    this.chars = this.prepareChars(inputMask.mask, inputMask.maskPlaceholder);
+  public constructor(
+    private readonly inputMask: InputMask,
+    initialValue?: string,
+  ) {
+    this.chars = this.prepareChars(
+      inputMask.mask,
+      inputMask.maskPlaceholder,
+      initialValue || '',
+    );
+
     this.firstMutableCharIndex = this.getFirstMutableCharIndex();
     this.lastMutableCharIndex = this.getLastMutableCharIndex();
   }
@@ -35,10 +43,8 @@ export class Chars {
   public mutableStringify(): string {
     const result: string[] = [];
 
-    // eslint-disable-next-line no-restricted-syntax
     for (const char of this.chars) {
       if (char.isPermanent || char.value === this.inputMask.maskPlaceholder) {
-        // eslint-disable-next-line no-continue
         continue;
       }
 
@@ -78,13 +84,22 @@ export class Chars {
     return this.findMutable(rawChars, checkingIndex, direction);
   }
 
-  private prepareChars(mask: string, maskPlaceholder: string): IChar[] {
+  private prepareChars(
+    mask: string,
+    maskPlaceholder: string,
+    initialValue: string,
+  ): IChar[] {
+    const initialChars = [...initialValue].values();
+
     return [...mask].map((char, idx, rawChars) => {
       const charRegexp = this.FORMAT_CHARS[char];
       const isPermanent = !charRegexp;
 
       return {
-        value: isPermanent ? char : maskPlaceholder,
+        value: isPermanent
+          ? char
+          : (initialChars.next().value as string | undefined) ||
+            maskPlaceholder,
         regexp: charRegexp,
         isPermanent,
         nearMutable: {

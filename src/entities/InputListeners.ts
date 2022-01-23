@@ -1,6 +1,7 @@
 import { SelectionRange } from '@src/entities/SelectionRange';
 import { InputChanger } from '@src/entities/InputChanger';
 import { InputValue } from '@src/entities/InputValue';
+import { Chars } from '@src/entities/Chars';
 
 export class InputListeners {
   private userListenersMap: Array<{
@@ -14,6 +15,7 @@ export class InputListeners {
     private readonly selectionRange: SelectionRange,
     private readonly inputChanger: InputChanger,
     private readonly inputValue: InputValue,
+    private readonly chars: Chars,
   ) {}
 
   public init(): void {
@@ -65,7 +67,7 @@ export class InputListeners {
         ? this.inputChanger.processSingleChange()
         : this.inputChanger.processMultiChange();
 
-    this.inputValue.setFromChars();
+    this.inputValue.value = this.chars.stringify();
     this.selectionRange.update(cursorPosition);
   };
 
