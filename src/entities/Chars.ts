@@ -23,18 +23,15 @@ export class Chars {
     '*': /./,
   };
 
-  public constructor(
-    private readonly inputMask: InputMask,
-    initialValue?: string,
-  ) {
-    this.chars = this.prepareChars(
+  public constructor(private readonly inputMask: InputMask, initialValue = '') {
+    this.chars = this.basePrepareChars(
       inputMask.mask,
       inputMask.maskPlaceholder,
-      initialValue || '',
     );
-
     this.firstMutableCharIndex = this.getFirstMutableCharIndex();
     this.lastMutableCharIndex = this.getLastMutableCharIndex();
+
+    this.insertValue([...initialValue], this.firstMutableCharIndex);
   }
 
   public stringify(): string {
@@ -142,23 +139,13 @@ export class Chars {
     return this.findMutable(rawChars, checkingIndex, direction);
   }
 
-  private prepareChars(
-    mask: string,
-    maskPlaceholder: string,
-    initialValue: string,
-  ): IChar[] {
-    const initialChars: Iterator<string, undefined> = [
-      ...initialValue,
-    ].values();
-
+  private basePrepareChars(mask: string, maskPlaceholder: string): IChar[] {
     return [...mask].map((char, idx, rawChars) => {
       const charRegexp = this.FORMAT_CHARS[char];
       const isPermanent = !charRegexp;
 
       return {
-        value: isPermanent
-          ? char
-          : initialChars.next().value || maskPlaceholder,
+        value: isPermanent ? char : maskPlaceholder,
         regexp: charRegexp,
         isPermanent,
         nearMutable: {
