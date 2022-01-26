@@ -1,6 +1,5 @@
 import { SelectionRange } from '@src/entities/SelectionRange';
 import { InputChanger } from '@src/entities/InputChanger';
-import { Chars } from '@src/entities/Chars';
 
 export class InputListeners {
   private userListenersMap: Array<{
@@ -13,7 +12,6 @@ export class InputListeners {
     private readonly $input: HTMLInputElement,
     private readonly selectionRange: SelectionRange,
     private readonly inputChanger: InputChanger,
-    private readonly chars: Chars,
   ) {}
 
   public init(): void {
@@ -60,13 +58,7 @@ export class InputListeners {
   }
 
   private onInput = (): void => {
-    const cursorPosition =
-      this.selectionRange.previous.start === this.selectionRange.previous.end
-        ? this.inputChanger.processSingleChange()
-        : this.inputChanger.processMultiChange();
-
-    this.$input.value = this.chars.stringify();
-    this.selectionRange.update(cursorPosition);
+    this.inputChanger.change();
   };
 
   private onSelectionChange = (): void => {

@@ -18,8 +18,8 @@ export const textInputMask = (
   const inputMask = new InputMask(options?.mask, options?.maskPlaceholder);
   const chars = new Chars(inputMask, options?.defaultValue);
   const selectionRange = new SelectionRange($input, chars);
-  const changer = new InputChanger($input, chars, selectionRange, inputMask);
-  const listeners = new InputListeners($input, selectionRange, changer, chars);
+  const changer = new InputChanger($input, chars, selectionRange);
+  const listeners = new InputListeners($input, selectionRange, changer);
 
   return new MaskedInput(
     $input,
