@@ -1,6 +1,7 @@
 import { TDirection } from '@src/types/TDirection';
 import { findLastIndex } from '@src/utils/findLastIndex';
 import { InputMask } from '@src/entities/InputMask';
+import { createArrayFromRange } from '@src/utils/createArrayFromRange';
 
 export interface IChar {
   value: string;
@@ -18,7 +19,7 @@ export class Chars {
 
   private readonly FORMAT_CHARS: Partial<Record<string, RegExp>> = {
     '9': /\d/,
-    a: /\w/,
+    a: /[A-Za-z]/,
     '*': /./,
   };
 
@@ -58,6 +59,63 @@ export class Chars {
     return this.chars[index];
   }
 
+  /**
+   * @return IChar|undefined (IChar - (last inserted char) if input was succeeded, undefined - if wasn't)
+   */
+  public insertValue(
+    value: string[],
+    insertIndex: number,
+    prevInsertedChar?: IChar,
+  ): IChar | undefined {
+    const candidateChar = this.charAt(insertIndex);
+
+    if (!candidateChar) {
+      return prevInsertedChar;
+    }
+
+    for (let i = 0; i < value.length; i += 1) {
+      const valueChar = value[i];
+
+      if (!valueChar) {
+        return prevInsertedChar;
+      }
+
+      if (candidateChar.isPermanent) {
+        return this.insertValue(value, insertIndex + 1, prevInsertedChar);
+      }
+
+      if (!candidateChar.regexp?.test(valueChar)) {
+        continue;
+      }
+
+      candidateChar.value = valueChar;
+
+      const restValue = value.slice(i + 1);
+
+      if (restValue.length === 0) {
+        return candidateChar;
+      }
+
+      return this.insertValue(restValue, insertIndex + 1, candidateChar);
+    }
+
+    return prevInsertedChar;
+  }
+
+  public deleteValue(from: number, to = from): void {
+    const range = from === to ? [from] : createArrayFromRange([from, to]);
+
+    for (const index of range) {
+      const candidateChar = this.charAt(index);
+
+      if (!candidateChar || candidateChar.isPermanent) {
+        continue;
+      }
+
+      candidateChar.value = this.inputMask.maskPlaceholder;
+    }
+  }
+
   private findMutable(
     rawChars: string[],
     currentIndex: number,
@@ -89,7 +147,9 @@ export class Chars {
     maskPlaceholder: string,
     initialValue: string,
   ): IChar[] {
-    const initialChars = [...initialValue].values();
+    const initialChars: Iterator<string, undefined> = [
+      ...initialValue,
+    ].values();
 
     return [...mask].map((char, idx, rawChars) => {
       const charRegexp = this.FORMAT_CHARS[char];
@@ -98,8 +158,7 @@ export class Chars {
       return {
         value: isPermanent
           ? char
-          : (initialChars.next().value as string | undefined) ||
-            maskPlaceholder,
+          : initialChars.next().value || maskPlaceholder,
         regexp: charRegexp,
         isPermanent,
         nearMutable: {
