@@ -16,7 +16,7 @@ export class MaskedInput {
     this.init();
   }
 
-  public get clearValue(): string {
+  public get unmaskedValue(): string {
     return this.chars.mutableStringify();
   }
 
