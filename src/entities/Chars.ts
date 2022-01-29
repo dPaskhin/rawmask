@@ -13,9 +13,11 @@ export interface IChar {
 export class Chars {
   public readonly chars!: IChar[];
 
-  public readonly firstMutableCharIndex!: number;
+  public readonly firstMutableIndex!: number;
 
-  public readonly lastMutableCharIndex!: number;
+  public readonly lastMutableIndex!: number;
+
+  public readonly length!: number;
 
   private readonly FORMAT_CHARS: Partial<Record<string, RegExp>> = {
     '9': /\d/,
@@ -24,17 +26,51 @@ export class Chars {
   };
 
   public constructor(private readonly inputMask: InputMask, initialValue = '') {
-    this.chars = this.basePrepareChars(
-      inputMask.mask,
-      inputMask.maskPlaceholder,
-    );
-    this.firstMutableCharIndex = this.getFirstMutableCharIndex();
-    this.lastMutableCharIndex = this.getLastMutableCharIndex();
+    this.chars = this.basePrepare(inputMask.mask, inputMask.maskPlaceholder);
+    this.firstMutableIndex = this.getFirstMutableIndex();
+    this.lastMutableIndex = this.getLastMutableIndex();
+    this.length = this.chars.length;
 
-    this.insertValue([...initialValue], this.firstMutableCharIndex);
+    this.insertValue([...initialValue], this.firstMutableIndex);
   }
 
   public stringify(): string {
+    if (!this.inputMask.maskPlaceholder) {
+      const result = [];
+
+      for (let i = 0; i < this.length; i += 1) {
+        const char = this.charAt(i);
+
+        if (!char) {
+          continue;
+        }
+
+        const rightMutableChar =
+          char.nearMutable.right !== undefined
+            ? this.charAt(char.nearMutable.right)
+            : undefined;
+
+        if (i < this.firstMutableIndex) {
+          result.push(char.value);
+
+          continue;
+        }
+
+        if (char.isPermanent && rightMutableChar?.value === '') {
+          break;
+        }
+
+        if (this.chars[i]?.value !== '') {
+          result.push(this.chars[i]?.value);
+          continue;
+        }
+
+        break;
+      }
+
+      return result.join('');
+    }
+
     return this.chars.map(({ value }) => value).join('');
   }
 
@@ -139,7 +175,7 @@ export class Chars {
     return this.findMutable(rawChars, checkingIndex, direction);
   }
 
-  private basePrepareChars(mask: string, maskPlaceholder: string): IChar[] {
+  private basePrepare(mask: string, maskPlaceholder: string): IChar[] {
     return [...mask].map((char, idx, rawChars) => {
       const charRegexp = this.FORMAT_CHARS[char];
       const isPermanent = !charRegexp;
@@ -156,7 +192,7 @@ export class Chars {
     });
   }
 
-  private getFirstMutableCharIndex(): number {
+  private getFirstMutableIndex(): number {
     const possibleIndex = this.chars.findIndex(
       ({ isPermanent }) => !isPermanent,
     );
@@ -168,7 +204,7 @@ export class Chars {
     return possibleIndex;
   }
 
-  private getLastMutableCharIndex(): number {
+  private getLastMutableIndex(): number {
     const possibleIndex = findLastIndex(
       this.chars,
       ({ isPermanent }) => !isPermanent,

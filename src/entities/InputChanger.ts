@@ -57,7 +57,7 @@ export class InputChanger {
   ): number {
     this.chars.deleteValue(rangeStart, rangeEnd);
 
-    const valuesDiffLength = rawValue.length - this.chars.chars.length;
+    const valuesDiffLength = rawValue.length - this.chars.length;
 
     const diff = rawValue.slice(rangeStart, rangeEnd + valuesDiffLength);
 
@@ -65,7 +65,7 @@ export class InputChanger {
       const char = this.chars.charAt(rangeStart);
 
       return char?.nearMutable.left === undefined
-        ? this.chars.firstMutableCharIndex
+        ? this.chars.firstMutableIndex
         : rangeStart;
     }
 
@@ -114,7 +114,7 @@ export class InputChanger {
     this.chars.deleteValue(curCursorPosition);
 
     if (charToDelete.nearMutable.left === undefined) {
-      return this.chars.firstMutableCharIndex;
+      return this.chars.firstMutableIndex;
     }
 
     return charToDelete.nearMutable.left + 1;
@@ -138,13 +138,13 @@ export class InputChanger {
     }
 
     if (lastInsertedChar) {
-      return this.chars.lastMutableCharIndex + 1;
+      return this.chars.lastMutableIndex + 1;
     }
 
     const prevCursorPositionChar = this.chars.charAt(prevCursorPosition);
 
     if (!prevCursorPositionChar) {
-      return this.chars.lastMutableCharIndex + 1;
+      return this.chars.lastMutableIndex + 1;
     }
 
     if (!prevCursorPositionChar.isPermanent) {
@@ -152,7 +152,7 @@ export class InputChanger {
     }
 
     if (prevCursorPositionChar.nearMutable.right === undefined) {
-      return this.chars.lastMutableCharIndex + 1;
+      return this.chars.lastMutableIndex + 1;
     }
 
     return prevCursorPositionChar.nearMutable.right;
@@ -164,14 +164,14 @@ export class InputChanger {
     const lastDeletedChar = this.chars.charAt(curCursorPosition);
 
     if (!lastDeletedChar) {
-      return this.chars.firstMutableCharIndex;
+      return this.chars.firstMutableIndex;
     }
 
     if (
       lastDeletedChar.isPermanent &&
       lastDeletedChar.nearMutable.left === undefined
     ) {
-      return this.chars.firstMutableCharIndex;
+      return this.chars.firstMutableIndex;
     }
 
     return curCursorPosition;
