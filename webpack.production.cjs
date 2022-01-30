@@ -19,7 +19,15 @@ module.exports = merge(commonConfig, {
   mode: 'production',
   devtool: 'source-map',
   optimization: {
-    minimizer: [new TerserPlugin()],
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: {
+          mangle: {
+            reserved: ['MaskedInput'],
+          },
+        },
+      }),
+    ],
   },
   plugins:
     process.env.BUNDLE_ANALYZE === 'true' ? [new BundleAnalyzerPlugin()] : [],
