@@ -2,16 +2,26 @@ import { Chars } from '@src/Chars/Chars';
 import { InputListeners } from '@src/InputListeners/InputListeners';
 
 export class MaskedInput {
+  #$input: HTMLInputElement;
+
+  #chars: Chars;
+
+  #listeners: InputListeners;
+
   public constructor(
-    private readonly $input: HTMLInputElement,
-    private readonly chars: Chars,
-    private readonly listeners: InputListeners,
+    $input: HTMLInputElement,
+    chars: Chars,
+    listeners: InputListeners,
   ) {
+    this.#$input = $input;
+    this.#chars = chars;
+    this.#listeners = listeners;
+
     this.init();
   }
 
   public get unmaskedValue(): string {
-    return this.chars.mutableStringify();
+    return this.#chars.mutableStringify();
   }
 
   public on<Name extends keyof HTMLElementEventMap>(
@@ -22,22 +32,22 @@ export class MaskedInput {
       event: HTMLElementEventMap[Name],
     ) => void,
   ): MaskedInput {
-    this.listeners.on(name, (event) => handler.call(this, this, event));
+    this.#listeners.on(name, (event) => handler.call(this, this, event));
 
     return this;
   }
 
   public off(name: keyof HTMLElementEventMap): void {
-    this.listeners.off(name);
+    this.#listeners.off(name);
   }
 
   public destroy(): void {
-    this.listeners.destroy();
-    this.$input.value = '';
+    this.#listeners.destroy();
+    this.#$input.value = '';
   }
 
   private init(): void {
-    this.listeners.init();
-    this.$input.value = this.chars.stringify();
+    this.#listeners.init();
+    this.#$input.value = this.#chars.stringify();
   }
 }
