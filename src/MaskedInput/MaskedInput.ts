@@ -1,16 +1,10 @@
-import { InputMask } from '@src/entities/InputMask';
-import { Chars } from '@src/entities/Chars';
-import { SelectionRange } from '@src/entities/SelectionRange';
-import { InputChanger } from '@src/entities/InputChanger';
-import { InputListeners } from '@src/entities/InputListeners';
+import { Chars } from '@src/Chars/Chars';
+import { InputListeners } from '@src/InputListeners/InputListeners';
 
 export class MaskedInput {
   public constructor(
     private readonly $input: HTMLInputElement,
-    private readonly inputMask: InputMask,
     private readonly chars: Chars,
-    private readonly selectionRange: SelectionRange,
-    private readonly changer: InputChanger,
     private readonly listeners: InputListeners,
   ) {
     this.init();

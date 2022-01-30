@@ -1,7 +1,7 @@
-import { TDirection } from '@src/types/TDirection';
-import { findLastIndex } from '@src/utils/findLastIndex';
-import { InputMask } from '@src/entities/InputMask';
-import { createArrayFromRange } from '@src/utils/createArrayFromRange';
+import { TDirection } from '@src/Common/types/TDirection';
+import { findLastIndex } from '@src/Common/utils/findLastIndex';
+import { createArrayFromRange } from '@src/Common/utils/createArrayFromRange';
+import { InputConfig } from '@src/InputConfig/InputConfig';
 
 export interface IChar {
   value: string;
@@ -25,17 +25,20 @@ export class Chars {
     '*': /./,
   };
 
-  public constructor(private readonly inputMask: InputMask, initialValue = '') {
-    this.chars = this.basePrepare(inputMask.mask, inputMask.maskPlaceholder);
+  public constructor(private readonly inputConfig: InputConfig) {
+    this.chars = this.basePrepare(
+      inputConfig.mask,
+      inputConfig.maskPlaceholder,
+    );
     this.firstMutableIndex = this.getFirstMutableIndex();
     this.lastMutableIndex = this.getLastMutableIndex();
     this.length = this.chars.length;
 
-    this.insertValue([...initialValue], this.firstMutableIndex);
+    this.insertValue([...inputConfig.defaultValue], this.firstMutableIndex);
   }
 
   public stringify(): string {
-    if (!this.inputMask.maskPlaceholder) {
+    if (!this.inputConfig.maskPlaceholder) {
       const result = [];
 
       for (let i = 0; i < this.length; i += 1) {
@@ -78,7 +81,7 @@ export class Chars {
     const result: string[] = [];
 
     for (const char of this.chars) {
-      if (char.isPermanent || char.value === this.inputMask.maskPlaceholder) {
+      if (char.isPermanent || char.value === this.inputConfig.maskPlaceholder) {
         continue;
       }
 
@@ -145,7 +148,7 @@ export class Chars {
         continue;
       }
 
-      candidateChar.value = this.inputMask.maskPlaceholder;
+      candidateChar.value = this.inputConfig.maskPlaceholder;
     }
   }
 

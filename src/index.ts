@@ -1,34 +1,22 @@
-import { SelectionRange } from '@src/entities/SelectionRange';
-import { Chars } from '@src/entities/Chars';
-import { InputMask } from '@src/entities/InputMask';
-import { InputChanger } from '@src/entities/InputChanger';
-import { InputListeners } from '@src/entities/InputListeners';
-import { MaskedInput } from '@src/entities/MaskedInput';
-
-interface IOptions {
-  mask?: string;
-  maskPlaceholder?: string;
-  defaultValue?: string;
-}
+import { SelectionRange } from '@src/SelectionRange/SelectionRange';
+import { Chars } from '@src/Chars/Chars';
+import { InputChanger } from '@src/InputListeners/services/InputChanger';
+import { InputListeners } from '@src/InputListeners/InputListeners';
+import { MaskedInput } from '@src/MaskedInput/MaskedInput';
+import { IMaskedOptions } from '@src/Common/types/IMaskedOptions';
+import { InputConfig } from '@src/InputConfig/InputConfig';
 
 export const textInputMask = (
   $input: HTMLInputElement,
-  options?: IOptions,
+  options?: IMaskedOptions,
 ): MaskedInput => {
-  const inputMask = new InputMask(options?.mask, options?.maskPlaceholder);
-  const chars = new Chars(inputMask, options?.defaultValue);
-  const selectionRange = new SelectionRange($input, chars.length);
+  const config = new InputConfig(options);
+  const chars = new Chars(config);
+  const selectionRange = new SelectionRange($input, chars);
   const changer = new InputChanger($input, chars, selectionRange);
   const listeners = new InputListeners($input, selectionRange, changer);
 
-  return new MaskedInput(
-    $input,
-    inputMask,
-    chars,
-    selectionRange,
-    changer,
-    listeners,
-  );
+  return new MaskedInput($input, chars, listeners);
 };
 
 export default textInputMask;

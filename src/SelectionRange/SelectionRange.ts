@@ -1,3 +1,5 @@
+import { Chars } from '@src/Chars/Chars';
+
 interface ISelectionRange {
   start: number;
   end: number;
@@ -11,7 +13,7 @@ export class SelectionRange {
 
   public constructor(
     private readonly $input: HTMLInputElement,
-    private readonly maximum: number,
+    private readonly chars: Chars,
   ) {}
 
   public get range(): ISelectionRange {
@@ -45,8 +47,8 @@ export class SelectionRange {
       return 0;
     }
 
-    if (value > this.maximum) {
-      return this.maximum;
+    if (value > this.chars.length) {
+      return this.chars.length;
     }
 
     return value;

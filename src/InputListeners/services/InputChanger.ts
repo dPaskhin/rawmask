@@ -1,5 +1,5 @@
-import { Chars, IChar } from '@src/entities/Chars';
-import { SelectionRange } from '@src/entities/SelectionRange';
+import { Chars, IChar } from '@src/Chars/Chars';
+import { SelectionRange } from '@src/SelectionRange/SelectionRange';
 
 export class InputChanger {
   public constructor(
