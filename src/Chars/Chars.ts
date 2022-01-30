@@ -4,6 +4,7 @@ import { createArrayFromRange } from '@src/Common/utils/createArrayFromRange';
 import { InputConfig } from '@src/InputConfig/InputConfig';
 
 export interface IChar {
+  index: number;
   value: string;
   isPermanent: boolean;
   nearMutable: Partial<Record<TDirection, number>>;
@@ -11,13 +12,13 @@ export interface IChar {
 }
 
 export class Chars {
-  public readonly chars!: IChar[];
-
   public readonly firstMutableIndex!: number;
 
   public readonly lastMutableIndex!: number;
 
   public readonly length!: number;
+
+  private readonly chars!: IChar[];
 
   private readonly FORMAT_CHARS: Partial<Record<string, RegExp>> = {
     '9': /\d/,
@@ -179,17 +180,18 @@ export class Chars {
   }
 
   private basePrepare(mask: string, maskPlaceholder: string): IChar[] {
-    return [...mask].map((char, idx, rawChars) => {
-      const charRegexp = this.FORMAT_CHARS[char];
+    return [...mask].map((maskChar, idx, maskChars) => {
+      const charRegexp = this.FORMAT_CHARS[maskChar];
       const isPermanent = !charRegexp;
 
       return {
-        value: isPermanent ? char : maskPlaceholder,
+        index: idx,
+        value: isPermanent ? maskChar : maskPlaceholder,
         regexp: charRegexp,
         isPermanent,
         nearMutable: {
-          left: this.findMutable(rawChars, idx, 'left'),
-          right: this.findMutable(rawChars, idx, 'right'),
+          left: this.findMutable(maskChars, idx, 'left'),
+          right: this.findMutable(maskChars, idx, 'right'),
         },
       };
     });
