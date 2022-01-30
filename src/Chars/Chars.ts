@@ -1,15 +1,8 @@
-import { TDirection } from '@src/Common/types/TDirection';
+import type { InputConfig } from '@src/InputConfig/InputConfig';
+import type { CharsPreparer } from '@src/Chars/services/CharsPreparer';
+import type { IChar } from '@src/Chars/types/IChar';
 import { findLastIndex } from '@src/Common/utils/findLastIndex';
 import { createArrayFromRange } from '@src/Common/utils/createArrayFromRange';
-import { InputConfig } from '@src/InputConfig/InputConfig';
-
-export interface IChar {
-  index: number;
-  value: string;
-  isPermanent: boolean;
-  nearMutable: Partial<Record<TDirection, number>>;
-  regexp?: RegExp;
-}
 
 export class Chars {
   public readonly firstMutableIndex!: number;
@@ -20,17 +13,11 @@ export class Chars {
 
   private readonly chars!: IChar[];
 
-  private readonly FORMAT_CHARS: Partial<Record<string, RegExp>> = {
-    '9': /\d/,
-    a: /[A-Za-z]/,
-    '*': /./,
-  };
-
-  public constructor(private readonly inputConfig: InputConfig) {
-    this.chars = this.basePrepare(
-      inputConfig.mask,
-      inputConfig.maskPlaceholder,
-    );
+  public constructor(
+    private readonly charsPreparer: CharsPreparer,
+    private readonly inputConfig: InputConfig,
+  ) {
+    this.chars = charsPreparer.prepare();
     this.firstMutableIndex = this.getFirstMutableIndex();
     this.lastMutableIndex = this.getLastMutableIndex();
     this.length = this.chars.length;
@@ -51,7 +38,7 @@ export class Chars {
 
         const rightMutableChar =
           char.nearMutable.right !== undefined
-            ? this.charAt(char.nearMutable.right)
+            ? char.nearMutable.right
             : undefined;
 
         if (i < this.firstMutableIndex) {
@@ -151,50 +138,6 @@ export class Chars {
 
       candidateChar.value = this.inputConfig.maskPlaceholder;
     }
-  }
-
-  private findMutable(
-    rawChars: string[],
-    currentIndex: number,
-    direction: TDirection,
-  ): number | undefined {
-    const checkingIndex = currentIndex + (direction === 'left' ? -1 : 1);
-
-    if (checkingIndex < 0 || checkingIndex > rawChars.length - 1) {
-      return undefined;
-    }
-
-    const rawChar = rawChars[checkingIndex];
-
-    if (!rawChar) {
-      return undefined;
-    }
-
-    const isMutable = this.FORMAT_CHARS[rawChar];
-
-    if (isMutable) {
-      return checkingIndex;
-    }
-
-    return this.findMutable(rawChars, checkingIndex, direction);
-  }
-
-  private basePrepare(mask: string, maskPlaceholder: string): IChar[] {
-    return [...mask].map((maskChar, idx, maskChars) => {
-      const charRegexp = this.FORMAT_CHARS[maskChar];
-      const isPermanent = !charRegexp;
-
-      return {
-        index: idx,
-        value: isPermanent ? maskChar : maskPlaceholder,
-        regexp: charRegexp,
-        isPermanent,
-        nearMutable: {
-          left: this.findMutable(maskChars, idx, 'left'),
-          right: this.findMutable(maskChars, idx, 'right'),
-        },
-      };
-    });
   }
 
   private getFirstMutableIndex(): number {

@@ -1,4 +1,4 @@
-import { IMaskedOptions } from '@src/Common/types/IMaskedOptions';
+import type { IMaskedOptions } from '@src/Common/types/IMaskedOptions';
 
 export class InputConfig {
   public readonly mask!: string;

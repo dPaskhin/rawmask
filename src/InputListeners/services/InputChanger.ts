@@ -1,5 +1,6 @@
-import { Chars, IChar } from '@src/Chars/Chars';
-import { SelectionRange } from '@src/SelectionRange/SelectionRange';
+import type { Chars } from '@src/Chars/Chars';
+import type { SelectionRange } from '@src/SelectionRange/SelectionRange';
+import type { IChar } from '@src/Chars/types/IChar';
 
 export class InputChanger {
   public constructor(
@@ -106,9 +107,9 @@ export class InputChanger {
     }
 
     if (charToDelete.isPermanent && charToDelete.nearMutable.left) {
-      this.chars.deleteValue(charToDelete.nearMutable.left);
+      this.chars.deleteValue(charToDelete.nearMutable.left.index);
 
-      return charToDelete.nearMutable.left;
+      return charToDelete.nearMutable.left.index;
     }
 
     this.chars.deleteValue(curCursorPosition);
@@ -117,7 +118,7 @@ export class InputChanger {
       return this.chars.firstMutableIndex;
     }
 
-    return charToDelete.nearMutable.left + 1;
+    return charToDelete.nearMutable.left.index + 1;
   }
 
   private processMultiDelete(
@@ -134,7 +135,7 @@ export class InputChanger {
     lastInsertedChar?: IChar,
   ): number {
     if (lastInsertedChar?.nearMutable.right) {
-      return lastInsertedChar.nearMutable.right;
+      return lastInsertedChar.nearMutable.right.index;
     }
 
     if (lastInsertedChar) {
@@ -155,7 +156,7 @@ export class InputChanger {
       return this.chars.lastMutableIndex + 1;
     }
 
-    return prevCursorPositionChar.nearMutable.right;
+    return prevCursorPositionChar.nearMutable.right.index;
   }
 
   private getActualCursorPositionAfterDelete(

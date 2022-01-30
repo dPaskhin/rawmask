@@ -1,5 +1,5 @@
-import { SelectionRange } from '@src/SelectionRange/SelectionRange';
-import { InputChanger } from '@src/InputListeners/services/InputChanger';
+import type { SelectionRange } from '@src/SelectionRange/SelectionRange';
+import type { InputChanger } from '@src/InputListeners/services/InputChanger';
 
 export class InputListeners {
   private userListenersMap: Array<{

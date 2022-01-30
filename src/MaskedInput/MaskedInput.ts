@@ -1,5 +1,5 @@
-import { Chars } from '@src/Chars/Chars';
-import { InputListeners } from '@src/InputListeners/InputListeners';
+import type { Chars } from '@src/Chars/Chars';
+import type { InputListeners } from '@src/InputListeners/InputListeners';
 
 export class MaskedInput {
   #$input: HTMLInputElement;
