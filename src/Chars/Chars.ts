@@ -1,6 +1,7 @@
 import type { InputConfig } from '@src/InputConfig/InputConfig';
 import type { CharsPreparer } from '@src/Chars/services/CharsPreparer';
 import type { IChar } from '@src/Chars/types/IChar';
+import type { CharsStringifier } from '@src/Chars/services/CharsStringifier';
 import { findLastIndex } from '@src/Common/utils/findLastIndex';
 import { createArrayFromRange } from '@src/Common/utils/createArrayFromRange';
 
@@ -16,6 +17,7 @@ export class Chars {
   public constructor(
     private readonly charsPreparer: CharsPreparer,
     private readonly inputConfig: InputConfig,
+    private readonly charsStringifier: CharsStringifier,
   ) {
     this.chars = charsPreparer.prepare();
     this.firstMutableIndex = this.getFirstMutableIndex();
@@ -26,57 +28,11 @@ export class Chars {
   }
 
   public stringify(): string {
-    if (!this.inputConfig.maskPlaceholder) {
-      const result = [];
-
-      for (let i = 0; i < this.length; i += 1) {
-        const char = this.charAt(i);
-
-        if (!char) {
-          continue;
-        }
-
-        const rightMutableChar =
-          char.nearMutable.right !== undefined
-            ? char.nearMutable.right
-            : undefined;
-
-        if (i < this.firstMutableIndex) {
-          result.push(char.value);
-
-          continue;
-        }
-
-        if (char.isPermanent && rightMutableChar?.value === '') {
-          break;
-        }
-
-        if (this.chars[i]?.value !== '') {
-          result.push(this.chars[i]?.value);
-          continue;
-        }
-
-        break;
-      }
-
-      return result.join('');
-    }
-
-    return this.chars.map(({ value }) => value).join('');
+    return this.charsStringifier.stringify(this.chars, this.firstMutableIndex);
   }
 
   public mutableStringify(): string {
-    const result: string[] = [];
-
-    for (const char of this.chars) {
-      if (char.isPermanent || char.value === this.inputConfig.maskPlaceholder) {
-        continue;
-      }
-
-      result.push(char.value);
-    }
-
-    return result.join('');
+    return this.charsStringifier.mutableStringify(this.chars);
   }
 
   public charAt(index: number): IChar | undefined {
@@ -141,9 +97,7 @@ export class Chars {
   }
 
   private getFirstMutableIndex(): number {
-    const possibleIndex = this.chars.findIndex(
-      ({ isPermanent }) => !isPermanent,
-    );
+    const possibleIndex = this.chars.findIndex((char) => !char.isPermanent);
 
     if (possibleIndex === -1) {
       return 0;
