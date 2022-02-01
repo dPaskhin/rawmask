@@ -12,15 +12,16 @@ import type { IMaskedOptions } from '@src/Common/types/IMaskedOptions';
 export class Main {
   public constructor(
     private readonly $input: HTMLInputElement,
+    private readonly mask: string,
     private readonly options?: IMaskedOptions,
   ) {}
 
   public validateParams(): void | never {
-    ParamsValidator.validate(this.$input, this.options);
+    ParamsValidator.validate(this.$input, this.mask, this.options);
   }
 
   public constructMaskedInput(): MaskedInput {
-    const config = new InputConfig(this.options);
+    const config = new InputConfig(this.mask, this.options);
     const charsPreparer = new CharsPreparer(config);
     const charsStringifier = new CharsStringifier(config);
     const chars = new Chars(charsPreparer, config, charsStringifier);

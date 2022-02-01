@@ -7,8 +7,8 @@ export class InputConfig {
 
   public readonly defaultValue!: string;
 
-  public constructor(options?: IMaskedOptions) {
-    this.mask = options?.mask || '';
+  public constructor(mask: string, options?: IMaskedOptions) {
+    this.mask = mask;
     this.maskPlaceholder = InputConfig.preparePlaceholder(
       options?.maskPlaceholder,
     );

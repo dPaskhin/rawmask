@@ -6,9 +6,7 @@ describe('Initialing input', () => {
   test('should format initial value', () => {
     const $input = createInput();
 
-    textInputMask($input, {
-      mask: '+7 (999) 999-99-99',
-    });
+    textInputMask($input, '+7 (999) 999-99-99');
 
     expect($input.value).toEqual('+7 (___) ___-__-__');
   });
@@ -17,13 +15,11 @@ describe('Initialing input', () => {
     const $starInput = createInput();
     const $spaceInput = createInput();
 
-    textInputMask($starInput, {
-      mask: '+7 (999) 999-99-99',
+    textInputMask($starInput, '+7 (999) 999-99-99', {
       maskPlaceholder: '*',
     });
 
-    textInputMask($spaceInput, {
-      mask: '+7 (999) 999-99-99',
+    textInputMask($spaceInput, '+7 (999) 999-99-99', {
       maskPlaceholder: '',
     });
 
@@ -35,14 +31,12 @@ describe('Initialing input', () => {
     const $starInput = createInput();
     const $spaceInput = createInput();
 
-    textInputMask($starInput, {
-      mask: '+7 (999) 999-99-99',
+    textInputMask($starInput, '+7 (999) 999-99-99', {
       maskPlaceholder: '*',
       defaultValue: '1234',
     });
 
-    textInputMask($spaceInput, {
-      mask: '+7 (999) 999-99-99',
+    textInputMask($spaceInput, '+7 (999) 999-99-99', {
       maskPlaceholder: '',
       defaultValue: '123456',
     });
@@ -54,8 +48,7 @@ describe('Initialing input', () => {
   test('should format initial value with default value with wrong chars', () => {
     const $input = createInput();
 
-    textInputMask($input, {
-      mask: '+7 (999) 999-99-99',
+    textInputMask($input, '+7 (999) 999-99-99', {
       defaultValue: '1234asd567',
     });
 
@@ -65,8 +58,7 @@ describe('Initialing input', () => {
   test('should stay not changed value', () => {
     const $input = createInput();
 
-    textInputMask($input, {
-      mask: '-----',
+    textInputMask($input, '-----', {
       defaultValue: '123',
     });
 

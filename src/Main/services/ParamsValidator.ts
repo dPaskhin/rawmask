@@ -4,11 +4,20 @@ import { BaseType } from '@src/Common/enums/BaseType';
 
 export class ParamsValidator {
   public static validate(
-    $input: HTMLInputElement,
-    options?: IMaskedOptions,
+    $input: unknown,
+    mask: unknown,
+    options?: unknown,
   ): void | never {
     if (!($input instanceof HTMLInputElement)) {
       throw new TextInputMaskError("input DOM element wasn't passed");
+    }
+
+    if (typeof mask !== 'string') {
+      throw new TextInputMaskError('mask should be string');
+    }
+
+    if (mask === '') {
+      throw new TextInputMaskError("mask shouldn't be empty");
     }
 
     if (options === undefined) {
@@ -20,21 +29,21 @@ export class ParamsValidator {
     }
 
     const optionsTypes: Record<keyof IMaskedOptions, BaseType> = {
-      mask: BaseType.STRING,
       maskPlaceholder: BaseType.STRING,
       defaultValue: BaseType.STRING,
     };
+    const maskedOptions: IMaskedOptions = options;
 
     for (const [key, type] of Object.entries(optionsTypes)) {
       const optionName = key as keyof IMaskedOptions;
 
-      if (options[optionName] === undefined) {
+      if (maskedOptions[optionName] === undefined) {
         continue;
       }
 
-      if (typeof options[optionName] !== type) {
+      if (typeof maskedOptions[optionName] !== type) {
         throw new TextInputMaskError(
-          `incorrect option "${key}" type: ${typeof options[optionName]}`,
+          `incorrect option "${key}" type: ${typeof maskedOptions[optionName]}`,
         );
       }
     }
