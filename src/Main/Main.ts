@@ -7,17 +7,26 @@ import { SelectionRange } from '@src/SelectionRange/SelectionRange';
 import { InputChanger } from '@src/InputListeners/services/InputChanger';
 import { InputListeners } from '@src/InputListeners/InputListeners';
 import { ParamsValidator } from '@src/Main/services/ParamsValidator';
+import { InputPreparer } from '@src/Main/services/InputPreparer';
 import type { IMaskedOptions } from '@src/Common/types/IMaskedOptions';
 
 export class Main {
-  public constructor(
-    private readonly $input: HTMLInputElement,
-    private readonly mask: string,
-    private readonly options?: IMaskedOptions,
-  ) {}
+  private readonly $input!: HTMLInputElement;
 
-  public validateParams(): void | never {
-    ParamsValidator.validate(this.$input, this.mask, this.options);
+  private readonly mask: string;
+
+  private readonly options?: IMaskedOptions;
+
+  public constructor(
+    $input: HTMLInputElement | string,
+    mask: string,
+    options?: IMaskedOptions,
+  ) {
+    ParamsValidator.validate($input, mask, options);
+
+    this.$input = InputPreparer.prepare($input);
+    this.mask = mask;
+    this.options = options;
   }
 
   public constructMaskedInput(): MaskedInput {

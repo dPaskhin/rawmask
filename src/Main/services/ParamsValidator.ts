@@ -8,7 +8,16 @@ export class ParamsValidator {
     mask: unknown,
     options?: unknown,
   ): void | never {
-    if (!($input instanceof HTMLInputElement)) {
+    if ($input instanceof Element && !($input instanceof HTMLInputElement)) {
+      throw new TextInputMaskError(
+        `${$input.constructor.name} was passed instead of HTMLInputElement element`,
+      );
+    }
+
+    if (
+      !($input instanceof HTMLInputElement) &&
+      (typeof $input !== 'string' || $input === '')
+    ) {
       throw new TextInputMaskError("input DOM element wasn't passed");
     }
 
