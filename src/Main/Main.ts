@@ -11,7 +11,7 @@ import { InputPreparer } from '@src/Main/services/InputPreparer';
 import type { IMaskedOptions } from '@src/Common/types/IMaskedOptions';
 
 export class Main {
-  private readonly $input!: HTMLInputElement;
+  private readonly $input: HTMLInputElement;
 
   private readonly mask: string;
 

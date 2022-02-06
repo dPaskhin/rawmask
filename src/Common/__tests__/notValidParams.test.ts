@@ -18,26 +18,43 @@ describe('Initialize with not valid params', () => {
     div.id = 'notValidDiv';
 
     // @ts-ignore
-    expect(() => textInputMask(null)).toThrow(
+    expect(() => textInputMask(null, ' ')).toThrow(
       new TextInputMaskError("input DOM element wasn't passed"),
     );
-    // @ts-ignore
-    expect(() => textInputMask('')).toThrow(
-      new TextInputMaskError("input DOM element wasn't passed"),
+    expect(() => textInputMask('', ' ')).toThrow(
+      new TextInputMaskError('"" is not a valid selector'),
     );
-    // @ts-ignore
     expect(() => textInputMask('notValid', ' ')).toThrow(
       new TextInputMaskError('input by "notValid" selector wasn\'t found'),
     );
     // @ts-ignore
-    expect(() => textInputMask(div)).toThrow(
+    expect(() => textInputMask(div, ' ')).toThrow(
       new TextInputMaskError(
         'HTMLDivElement was passed instead of HTMLInputElement element',
       ),
     );
-    // @ts-ignore
     expect(() => textInputMask('#notValidDiv', ' ')).toThrow(
       new TextInputMaskError('input by "#notValidDiv" selector wasn\'t found'),
+    );
+    expect(() => {
+      const input = createInput();
+
+      textInputMask(input, ' ');
+      textInputMask(input, ' ');
+    }).toThrow(new TextInputMaskError('you trying add mask to masked input'));
+    expect(() => {
+      const input = createInput();
+
+      input.id = 'input';
+
+      document.body.prepend(input);
+
+      textInputMask('#input', ' ');
+      textInputMask('#input', ' ');
+    }).toThrow(
+      new TextInputMaskError(
+        'you trying add mask to masked input with selector "#input"',
+      ),
     );
   });
 
