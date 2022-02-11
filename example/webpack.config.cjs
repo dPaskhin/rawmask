@@ -1,19 +1,25 @@
+const path = require('path');
 const { TsconfigPathsPlugin } = require('tsconfig-paths-webpack-plugin');
-const CircularDependencyPlugin = require('circular-dependency-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  output: {
-    clean: true,
+  entry: {
+    example: path.join(__dirname, 'index.ts'),
   },
+  mode: 'development',
   cache: true,
+  devtool: 'eval-source-map',
   resolve: {
     plugins: [new TsconfigPathsPlugin()],
     extensions: ['.ts', '.js'],
   },
+  devServer: {
+    hot: true,
+    port: 8_080,
+  },
   plugins: [
-    new CircularDependencyPlugin({
-      exclude: /node_modules/,
-      failOnError: true,
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, 'index.html'),
     }),
   ],
   module: {
