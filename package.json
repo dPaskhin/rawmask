@@ -6,13 +6,12 @@
   "scripts": {
     "build": "webpack --progress",
     "analyze": "cross-env BUNDLE_ANALYZE=true webpack --progress",
-    "lint": "tsc && eslint \"./**/*.{ts,js,cjs}\"",
+    "lint": "tsc && eslint \"./**/*.{ts,js}\"",
     "test": "jest",
     "pre-commit": "npm run lint && npm run test"
   },
   "author": "Dmitry Paskhin <d.pasxin@gmail.com>",
   "license": "MIT",
-  "type": "module",
   "devDependencies": {
     "@babel/core": "^7.16.7",
     "@babel/plugin-transform-typescript": "^7.16.8",
