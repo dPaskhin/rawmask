@@ -18,13 +18,7 @@ export class ParamsValidator {
       );
     }
 
-    if (typeof mask !== 'string') {
-      throw new TextInputMaskError('mask should be string');
-    }
-
-    if (mask === '') {
-      throw new TextInputMaskError("mask shouldn't be empty");
-    }
+    ParamsValidator.maskValidate(mask);
 
     if (options === undefined) {
       return;
@@ -52,6 +46,29 @@ export class ParamsValidator {
           `incorrect option "${key}" type: ${typeof maskedOptions[optionName]}`,
         );
       }
+    }
+  }
+
+  private static maskValidate(mask: unknown): never | void {
+    if (typeof mask !== 'string' && !Array.isArray(mask)) {
+      throw new TextInputMaskError(
+        'mask should be a string or an array of strings',
+      );
+    }
+
+    if (
+      mask.length === 0 ||
+      (Array.isArray(mask) && mask.length === 1 && mask[0] === '')
+    ) {
+      throw new TextInputMaskError("mask shouldn't be empty");
+    }
+
+    if (typeof mask === 'string') {
+      return;
+    }
+
+    if (!mask.every((item) => typeof item === 'string')) {
+      throw new TextInputMaskError('array mask should has only strings');
     }
   }
 }

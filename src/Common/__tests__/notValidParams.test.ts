@@ -61,10 +61,20 @@ describe('Initialize with not valid params', () => {
   test('with no valid mask', () => {
     // @ts-ignore
     expect(() => textInputMask(createInput())).toThrow(
-      new TextInputMaskError('mask should be string'),
+      new TextInputMaskError('mask should be a string or an array of strings'),
     );
     expect(() => textInputMask(createInput(), '')).toThrow(
       new TextInputMaskError("mask shouldn't be empty"),
+    );
+    expect(() => textInputMask(createInput(), [])).toThrow(
+      new TextInputMaskError("mask shouldn't be empty"),
+    );
+    expect(() => textInputMask(createInput(), [''])).toThrow(
+      new TextInputMaskError("mask shouldn't be empty"),
+    );
+    // @ts-ignore
+    expect(() => textInputMask(createInput(), ['', null])).toThrow(
+      new TextInputMaskError('array mask should has only strings'),
     );
   });
 

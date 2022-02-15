@@ -13,13 +13,13 @@ import type { IMaskedOptions } from '@src/Common/types/IMaskedOptions';
 export class Main {
   private readonly $input: HTMLInputElement;
 
-  private readonly mask: string;
+  private readonly mask: string | string[];
 
   private readonly options?: IMaskedOptions;
 
   public constructor(
     $input: HTMLInputElement | string,
-    mask: string,
+    mask: string | string[],
     options?: IMaskedOptions,
   ) {
     ParamsValidator.validate($input, mask, options);

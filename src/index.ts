@@ -4,7 +4,7 @@ import { Main } from '@src/Main/Main';
 
 export const textInputMask = (
   $input: HTMLInputElement | string,
-  mask: string,
+  mask: string | string[],
   options?: IMaskedOptions,
 ): MaskedInput => {
   const main = new Main($input, mask, options);
