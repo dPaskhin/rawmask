@@ -5,10 +5,13 @@ const createInput = (): HTMLInputElement => document.createElement('input');
 describe('Initialing input', () => {
   test('should format initial value', () => {
     const $input = createInput();
+    const $inputArrayMask = createInput();
 
     textInputMask($input, '+7 (999) 999-99-99');
+    textInputMask($inputArrayMask, ['9', '9', '/', '9', '9', '/', '9', '9']);
 
     expect($input.value).toEqual('+7 (___) ___-__-__');
+    expect($inputArrayMask.value).toEqual('__/__/__');
   });
 
   test('should format initial value with custom mask placeholder', () => {
