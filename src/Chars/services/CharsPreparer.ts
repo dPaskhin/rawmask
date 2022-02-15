@@ -26,6 +26,16 @@ export class CharsPreparer {
 
   private basePrepare(): IChar[] {
     return [...this.inputConfig.mask].map((maskChar, idx) => {
+      if (maskChar instanceof RegExp) {
+        return {
+          index: idx,
+          value: this.inputConfig.maskPlaceholder,
+          regexp: maskChar,
+          isPermanent: false,
+          nearMutable: {},
+        };
+      }
+
       const charRegexp = this.FORMAT_CHARS[maskChar];
       const isPermanent = !charRegexp;
 

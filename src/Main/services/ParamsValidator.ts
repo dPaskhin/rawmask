@@ -67,7 +67,9 @@ export class ParamsValidator {
       return;
     }
 
-    if (!mask.every((item) => typeof item === 'string')) {
+    if (
+      !mask.every((item) => typeof item === 'string' || item instanceof RegExp)
+    ) {
       throw new TextInputMaskError('array mask should has only strings');
     }
   }

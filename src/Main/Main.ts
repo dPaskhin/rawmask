@@ -9,17 +9,18 @@ import { InputListeners } from '@src/InputListeners/InputListeners';
 import { ParamsValidator } from '@src/Main/services/ParamsValidator';
 import { InputPreparer } from '@src/Main/services/InputPreparer';
 import type { IMaskedOptions } from '@src/Common/types/IMaskedOptions';
+import { TMask } from '@src/Common/types/TMask';
 
 export class Main {
   private readonly $input: HTMLInputElement;
 
-  private readonly mask: string | string[];
+  private readonly mask: TMask;
 
   private readonly options?: IMaskedOptions;
 
   public constructor(
     $input: HTMLInputElement | string,
-    mask: string | string[],
+    mask: TMask,
     options?: IMaskedOptions,
   ) {
     ParamsValidator.validate($input, mask, options);

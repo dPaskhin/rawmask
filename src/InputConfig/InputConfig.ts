@@ -1,13 +1,14 @@
 import type { IMaskedOptions } from '@src/Common/types/IMaskedOptions';
+import { TMask } from '@src/Common/types/TMask';
 
 export class InputConfig {
-  public readonly mask: string | string[];
+  public readonly mask: TMask;
 
   public readonly maskPlaceholder: string;
 
   public readonly defaultValue: string;
 
-  public constructor(mask: string | string[], options?: IMaskedOptions) {
+  public constructor(mask: TMask, options?: IMaskedOptions) {
     this.mask = mask;
     this.maskPlaceholder = InputConfig.preparePlaceholder(
       options?.maskPlaceholder,
