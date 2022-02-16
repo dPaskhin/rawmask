@@ -1,8 +1,8 @@
 import type { IMaskedOptions } from '@src/Common/types/IMaskedOptions';
-import { TMask } from '@src/Common/types/TMask';
+import type { TMask } from '@src/Common/types/TMask';
 
 export class InputConfig {
-  public readonly mask: TMask;
+  public mask: TMask;
 
   public readonly maskPlaceholder: string;
 

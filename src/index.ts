@@ -1,7 +1,7 @@
 import type { MaskedInput } from '@src/MaskedInput/MaskedInput';
 import type { IMaskedOptions } from '@src/Common/types/IMaskedOptions';
+import type { TMask } from '@src/Common/types/TMask';
 import { Main } from '@src/Main/Main';
-import { TMask } from '@src/Common/types/TMask';
 
 export const textInputMask = (
   $input: HTMLInputElement | string,

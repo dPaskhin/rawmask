@@ -6,37 +6,44 @@ import { findLastIndex } from '@src/Common/utils/findLastIndex';
 import { createArrayFromRange } from '@src/Common/utils/createArrayFromRange';
 
 export class Chars {
-  public readonly firstMutableIndex!: number;
+  public firstMutableIndex: number;
 
-  public readonly lastMutableIndex!: number;
+  public lastMutableIndex: number;
 
-  public readonly length!: number;
+  public length: number;
 
-  private readonly chars!: IChar[];
+  private items: IChar[];
 
   public constructor(
     private readonly charsPreparer: CharsPreparer,
     private readonly inputConfig: InputConfig,
     private readonly charsStringifier: CharsStringifier,
   ) {
-    this.chars = charsPreparer.prepare();
+    this.items = charsPreparer.prepare();
     this.firstMutableIndex = this.getFirstMutableIndex();
     this.lastMutableIndex = this.getLastMutableIndex();
-    this.length = this.chars.length;
+    this.length = this.items.length;
 
     this.insertValue([...inputConfig.defaultValue], this.firstMutableIndex);
   }
 
+  public set chars(chars: IChar[]) {
+    this.items = chars;
+    this.firstMutableIndex = this.getFirstMutableIndex();
+    this.lastMutableIndex = this.getLastMutableIndex();
+    this.length = this.items.length;
+  }
+
   public stringify(): string {
-    return this.charsStringifier.stringify(this.chars, this.firstMutableIndex);
+    return this.charsStringifier.stringify(this.items, this.firstMutableIndex);
   }
 
   public mutableStringify(): string {
-    return this.charsStringifier.mutableStringify(this.chars);
+    return this.charsStringifier.mutableStringify(this.items);
   }
 
   public charAt(index: number): IChar | undefined {
-    return this.chars[index];
+    return this.items[index];
   }
 
   /**
@@ -97,7 +104,7 @@ export class Chars {
   }
 
   private getFirstMutableIndex(): number {
-    const possibleIndex = this.chars.findIndex((char) => !char.isPermanent);
+    const possibleIndex = this.items.findIndex((char) => !char.isPermanent);
 
     if (possibleIndex === -1) {
       return 0;
@@ -108,12 +115,12 @@ export class Chars {
 
   private getLastMutableIndex(): number {
     const possibleIndex = findLastIndex(
-      this.chars,
+      this.items,
       ({ isPermanent }) => !isPermanent,
     );
 
     if (possibleIndex === -1) {
-      return this.chars.length - 1;
+      return this.items.length - 1;
     }
 
     return possibleIndex;

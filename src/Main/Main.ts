@@ -9,7 +9,7 @@ import { InputListeners } from '@src/InputListeners/InputListeners';
 import { ParamsValidator } from '@src/Main/services/ParamsValidator';
 import { InputPreparer } from '@src/Main/services/InputPreparer';
 import type { IMaskedOptions } from '@src/Common/types/IMaskedOptions';
-import { TMask } from '@src/Common/types/TMask';
+import type { TMask } from '@src/Common/types/TMask';
 
 export class Main {
   private readonly $input: HTMLInputElement;
@@ -39,6 +39,13 @@ export class Main {
     const changer = new InputChanger(this.$input, chars, selectionRange);
     const listeners = new InputListeners(this.$input, selectionRange, changer);
 
-    return new MaskedInput(this.$input, chars, listeners);
+    return new MaskedInput(
+      this.$input,
+      chars,
+      listeners,
+      config,
+      charsPreparer,
+      selectionRange,
+    );
   }
 }
