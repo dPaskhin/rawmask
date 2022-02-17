@@ -8,5 +8,13 @@ module.exports = {
       },
     ],
   ],
-  plugins: ['@babel/plugin-transform-typescript'],
+  plugins: [
+    '@babel/plugin-transform-typescript',
+    [
+      '@babel/plugin-transform-runtime',
+      {
+        regenerator: true,
+      },
+    ],
+  ],
 };
