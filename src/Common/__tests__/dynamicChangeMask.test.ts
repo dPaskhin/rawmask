@@ -1,17 +1,28 @@
-import { textInputMask } from '@src/index';
+import userEvent from '@testing-library/user-event';
 
-const createInput = (): HTMLInputElement => document.createElement('input');
+import { textInputMask } from '@src/index';
+import { clickOnInput } from '@src/Common/__tests__/utils/clickOnInput';
+
+const createInput = (): HTMLInputElement => {
+  const $input = document.createElement('input');
+
+  document.body.prepend($input);
+
+  return $input;
+};
 
 describe('Dynamic change mask', () => {
   test('should change mask', () => {
     const $input = createInput();
 
-    const masked = textInputMask($input, '+7 (999) 999-99-99', {
-      defaultValue: '1234',
-    });
+    const masked = textInputMask($input, '+7 (999) 999-99-99');
+
+    clickOnInput($input, 4);
+
+    userEvent.keyboard('1234');
 
     masked.mask = '99/99/99';
 
-    expect($input.value).toEqual('12/34/__');
+    expect($input).toHaveValue('12/34/__');
   });
 });
