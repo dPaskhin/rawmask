@@ -8,7 +8,7 @@ module.exports = {
   },
   mode: 'development',
   cache: true,
-  devtool: 'eval-source-map',
+  devtool: 'source-map',
   resolve: {
     plugins: [new TsconfigPathsPlugin()],
     extensions: ['.ts', '.js'],
