@@ -103,6 +103,27 @@ export class Chars {
     }
   }
 
+  public insertMaskedValue(value: string): void {
+    for (const [index, item] of this.items.entries()) {
+      if (item.isPermanent) {
+        continue;
+      }
+      const candidateValue = value[index];
+
+      if (!candidateValue) {
+        continue;
+      }
+
+      if (item.regexp?.test(candidateValue)) {
+        item.value = candidateValue;
+
+        continue;
+      }
+
+      item.value = this.inputConfig.maskPlaceholder;
+    }
+  }
+
   private getFirstMutableIndex(): number {
     const possibleIndex = this.items.findIndex((char) => !char.isPermanent);
 

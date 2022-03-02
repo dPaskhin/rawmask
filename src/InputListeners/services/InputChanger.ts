@@ -9,16 +9,21 @@ export class InputChanger {
     private readonly selectionRange: SelectionRange,
   ) {}
 
-  public change(): void {
-    const cursorPosition = this.processChange();
+  public change(rawValue: string): void {
+    const cursorPosition = this.processChange([...rawValue]);
 
     this.$input.value = this.chars.stringify();
     this.selectionRange.update(cursorPosition);
   }
 
-  private processChange(): number {
-    const rawValue = [...this.$input.value];
+  public fullChange(rawValue: string): void {
+    this.chars.insertMaskedValue(rawValue);
 
+    this.$input.value = this.chars.stringify();
+    this.selectionRange.update(this.selectionRange.previous.start);
+  }
+
+  private processChange(rawValue: string[]): number {
     if (
       this.selectionRange.previous.start !== this.selectionRange.previous.end
     ) {

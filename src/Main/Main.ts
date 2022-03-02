@@ -46,6 +46,7 @@ export class Main {
       config,
       charsPreparer,
       selectionRange,
+      changer,
     );
   }
 }

@@ -16,6 +16,7 @@ export class InputListeners {
 
   public init(): void {
     this.$input.addEventListener('input', this.onInput);
+
     document.addEventListener('selectionchange', this.onSelectionChange);
   }
 
@@ -28,6 +29,7 @@ export class InputListeners {
     this.userListenersMap = [];
 
     this.$input.removeEventListener('input', this.onInput);
+
     document.removeEventListener('selectionchange', this.onSelectionChange);
   }
 
@@ -58,7 +60,7 @@ export class InputListeners {
   }
 
   private onInput = (): void => {
-    this.inputChanger.change();
+    this.inputChanger.change(this.$input.value);
   };
 
   private onSelectionChange = (): void => {

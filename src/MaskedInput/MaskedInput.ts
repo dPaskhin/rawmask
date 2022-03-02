@@ -4,6 +4,7 @@ import type { TMask } from '@src/Common/types/TMask';
 import type { InputConfig } from '@src/InputConfig/InputConfig';
 import type { CharsPreparer } from '@src/Chars/services/CharsPreparer';
 import { SelectionRange } from '@src/SelectionRange/SelectionRange';
+import { InputChanger } from '@src/InputListeners/services/InputChanger';
 
 export class MaskedInput {
   #$input: HTMLInputElement;
@@ -18,6 +19,8 @@ export class MaskedInput {
 
   #selectionRange: SelectionRange;
 
+  #inputChanger: InputChanger;
+
   public constructor(
     $input: HTMLInputElement,
     chars: Chars,
@@ -25,6 +28,7 @@ export class MaskedInput {
     config: InputConfig,
     charsPreparer: CharsPreparer,
     selectionRange: SelectionRange,
+    inputChanger: InputChanger,
   ) {
     this.#$input = $input;
     this.#chars = chars;
@@ -32,12 +36,21 @@ export class MaskedInput {
     this.#config = config;
     this.#charsPreparer = charsPreparer;
     this.#selectionRange = selectionRange;
+    this.#inputChanger = inputChanger;
 
     this.init();
   }
 
   public get unmaskedValue(): string {
     return this.#chars.mutableStringify();
+  }
+
+  public get value(): string {
+    return this.#chars.stringify();
+  }
+
+  public set value(value: string) {
+    this.#inputChanger.fullChange(value);
   }
 
   public set mask(mask: TMask) {
