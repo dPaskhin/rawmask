@@ -7,6 +7,7 @@ module.exports = {
   roots: ['<rootDir>/src'],
   moduleNameMapper,
   setupFilesAfterEnv: ['./setupTest.js'],
+  testRegex: ['.test.ts$'],
   testEnvironment: 'jsdom',
   moduleFileExtensions: ['ts', 'js'],
 };
