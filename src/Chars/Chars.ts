@@ -61,29 +61,27 @@ export class Chars {
     }
 
     for (let i = 0; i < value.length; i += 1) {
-      const valueChar = value[i];
+      const valueChar = value[i] as string;
 
-      if (!valueChar) {
-        return prevInsertedChar;
+      const ableToInsert = candidateChar.isPermanent
+        ? valueChar === candidateChar.value
+        : !!candidateChar.regexp?.test(valueChar);
+
+      if (ableToInsert) {
+        candidateChar.value = valueChar;
+
+        const restValue = value.slice(i + 1);
+
+        if (restValue.length === 0) {
+          return candidateChar;
+        }
+
+        return this.insertValue(restValue, insertIndex + 1, candidateChar);
       }
 
       if (candidateChar.isPermanent) {
         return this.insertValue(value, insertIndex + 1, prevInsertedChar);
       }
-
-      if (!candidateChar.regexp?.test(valueChar)) {
-        continue;
-      }
-
-      candidateChar.value = valueChar;
-
-      const restValue = value.slice(i + 1);
-
-      if (restValue.length === 0) {
-        return candidateChar;
-      }
-
-      return this.insertValue(restValue, insertIndex + 1, candidateChar);
     }
 
     return prevInsertedChar;
