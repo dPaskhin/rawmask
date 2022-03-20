@@ -45,6 +45,11 @@ export class MaskedInput {
     return this.#chars.mutableStringify();
   }
 
+  public set unmaskedValue(value: string) {
+    this.#inputChanger.onlyMutableChange(value);
+  }
+
+  // eslint-disable-next-line @typescript-eslint/member-ordering
   public get value(): string {
     return this.#chars.stringify();
   }
@@ -57,16 +62,8 @@ export class MaskedInput {
     const prevUnmaskedValue = this.unmaskedValue;
 
     this.#config.mask = mask;
-    this.#chars.chars = this.#charsPreparer.prepare();
-    const lastInsertedChar = this.#chars.insertValue(
-      [...prevUnmaskedValue],
-      this.#chars.firstMutableIndex,
-    );
 
-    this.#$input.value = this.#chars.stringify();
-    this.#selectionRange.update(
-      (lastInsertedChar?.index || this.#chars.lastMutableIndex) + 1,
-    );
+    this.unmaskedValue = prevUnmaskedValue;
   }
 
   public on<Name extends keyof HTMLElementEventMap>(

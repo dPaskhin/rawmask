@@ -10,7 +10,7 @@ export class InputChanger {
   ) {}
 
   public change(rawValue: string): void {
-    const cursorPosition = this.processChange([...rawValue]);
+    const cursorPosition = this.processChange(rawValue);
 
     this.$input.value = this.chars.stringify();
     this.selectionRange.update(cursorPosition);
@@ -23,7 +23,15 @@ export class InputChanger {
     this.selectionRange.update(this.selectionRange.previous.start);
   }
 
-  private processChange(rawValue: string[]): number {
+  public onlyMutableChange(value: string): void {
+    this.chars.clear();
+    this.chars.insertValue(value, this.chars.firstMutableIndex);
+
+    this.$input.value = this.chars.stringify();
+    this.selectionRange.update(this.selectionRange.previous.start);
+  }
+
+  private processChange(rawValue: string): number {
     if (
       this.selectionRange.previous.start !== this.selectionRange.previous.end
     ) {
@@ -59,7 +67,7 @@ export class InputChanger {
   private processRangeChange(
     rangeStart: number,
     rangeEnd: number,
-    rawValue: string[],
+    rawValue: string,
   ): number {
     this.chars.deleteValue(rangeStart, rangeEnd);
 
@@ -92,7 +100,7 @@ export class InputChanger {
   private processAddedValueChange(
     prevCursorPosition: number,
     curCursorPosition: number,
-    rawValue: string[],
+    rawValue: string,
   ): number {
     const diff = rawValue.slice(prevCursorPosition, curCursorPosition);
 

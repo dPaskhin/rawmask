@@ -24,7 +24,7 @@ export class Chars {
     this.lastMutableIndex = this.getLastMutableIndex();
     this.length = this.items.length;
 
-    this.insertValue([...inputConfig.defaultValue], this.firstMutableIndex);
+    this.insertValue(inputConfig.defaultValue, this.firstMutableIndex);
   }
 
   public set chars(chars: IChar[]) {
@@ -46,11 +46,21 @@ export class Chars {
     return this.items[index];
   }
 
+  public clear(): void {
+    for (const item of this.items) {
+      if (item.isPermanent) {
+        continue;
+      }
+
+      item.value = this.inputConfig.maskPlaceholder;
+    }
+  }
+
   /**
    * @return IChar|undefined (IChar - (last inserted char) if input was succeeded, undefined - if wasn't)
    */
   public insertValue(
-    value: string[],
+    value: string,
     insertIndex: number,
     prevInsertedChar?: IChar,
   ): IChar | undefined {
