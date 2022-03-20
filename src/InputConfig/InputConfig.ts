@@ -2,18 +2,17 @@ import type { IMaskedOptions } from '@src/Common/types/IMaskedOptions';
 import type { TMask } from '@src/Common/types/TMask';
 
 export class InputConfig {
-  public mask: TMask;
+  public maskPlaceholder!: string;
 
-  public readonly maskPlaceholder: string;
+  public defaultValue!: string;
 
-  public readonly defaultValue: string;
+  public constructor(public mask: TMask, private options?: IMaskedOptions) {}
 
-  public constructor(mask: TMask, options?: IMaskedOptions) {
-    this.mask = mask;
+  public init(): void {
     this.maskPlaceholder = InputConfig.preparePlaceholder(
-      options?.maskPlaceholder,
+      this.options?.maskPlaceholder,
     );
-    this.defaultValue = options?.defaultValue || '';
+    this.defaultValue = this.options?.defaultValue || '';
   }
 
   private static preparePlaceholder(value?: string): string {

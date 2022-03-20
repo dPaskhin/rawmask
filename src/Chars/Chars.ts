@@ -6,32 +6,33 @@ import { findLastIndex } from '@src/Common/utils/findLastIndex';
 import { createArrayFromRange } from '@src/Common/utils/createArrayFromRange';
 
 export class Chars {
-  public firstMutableIndex: number;
+  public firstMutableIndex!: number;
 
-  public lastMutableIndex: number;
+  public lastMutableIndex!: number;
 
-  public length: number;
+  public length!: number;
 
-  private items: IChar[];
+  private items!: IChar[];
 
   public constructor(
     private readonly charsPreparer: CharsPreparer,
     private readonly inputConfig: InputConfig,
     private readonly charsStringifier: CharsStringifier,
-  ) {
-    this.items = charsPreparer.prepare();
-    this.firstMutableIndex = this.getFirstMutableIndex();
-    this.lastMutableIndex = this.getLastMutableIndex();
-    this.length = this.items.length;
-
-    this.insertValue(inputConfig.defaultValue, this.firstMutableIndex);
-  }
+  ) {}
 
   public set chars(chars: IChar[]) {
     this.items = chars;
     this.firstMutableIndex = this.getFirstMutableIndex();
     this.lastMutableIndex = this.getLastMutableIndex();
     this.length = this.items.length;
+  }
+
+  public init(): void {
+    this.items = this.charsPreparer.prepare();
+    this.firstMutableIndex = this.getFirstMutableIndex();
+    this.lastMutableIndex = this.getLastMutableIndex();
+    this.length = this.items.length;
+    this.insertValue(this.inputConfig.defaultValue, this.firstMutableIndex);
   }
 
   public stringify(): string {

@@ -89,7 +89,9 @@ export class MaskedInput {
   }
 
   private init(): void {
+    this.#config.init();
     this.#listeners.init();
+    this.#chars.init();
     this.#$input.value = this.#chars.stringify();
   }
 }
