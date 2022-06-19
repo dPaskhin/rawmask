@@ -1,7 +1,8 @@
 import type { IMaskedOptions } from '@src/Common/types/IMaskedOptions';
 import type { TMask } from '@src/Common/types/TMask';
+import type { IInitiated } from '@src/Common/types/utils/IInitiated';
 
-export class InputConfig {
+export class InputConfig implements IInitiated {
   public maskPlaceholder!: string;
 
   public defaultValue!: string;

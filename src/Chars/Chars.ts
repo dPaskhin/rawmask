@@ -2,10 +2,11 @@ import type { InputConfig } from '@src/InputConfig/InputConfig';
 import type { CharsPreparer } from '@src/Chars/services/CharsPreparer';
 import type { IChar } from '@src/Chars/types/IChar';
 import type { CharsStringifier } from '@src/Chars/services/CharsStringifier';
+import type { IInitiated } from '@src/Common/types/utils/IInitiated';
 import { findLastIndex } from '@src/Common/utils/findLastIndex';
 import { createArrayFromRange } from '@src/Common/utils/createArrayFromRange';
 
-export class Chars {
+export class Chars implements IInitiated {
   public firstMutableIndex!: number;
 
   public lastMutableIndex!: number;

@@ -1,7 +1,8 @@
 import type { SelectionRange } from '@src/SelectionRange/SelectionRange';
 import type { InputChanger } from '@src/InputListeners/services/InputChanger';
+import type { IInitiated } from '@src/Common/types/utils/IInitiated';
 
-export class InputListeners {
+export class InputListeners implements IInitiated {
   private userListenersMap: Array<{
     name: keyof HTMLElementEventMap;
     // eslint-disable-next-line @typescript-eslint/method-signature-style
