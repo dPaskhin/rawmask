@@ -23,9 +23,9 @@ export class InputChanger {
     this.selectionRange.update(this.selectionRange.previous.start);
   }
 
-  public onlyMutableChange(value: string): void {
+  public onlyChangeableChange(value: string): void {
     this.chars.clear();
-    this.chars.insertValue(value, this.chars.firstMutableIndex);
+    this.chars.insertValue(value, this.chars.firstChangeableIndex);
 
     this.$input.value = this.chars.stringify();
     this.selectionRange.update(this.selectionRange.previous.start);
@@ -78,8 +78,8 @@ export class InputChanger {
     if (diff.length === 0) {
       const char = this.chars.charAt(rangeStart);
 
-      return char?.nearMutable.left === undefined
-        ? this.chars.firstMutableIndex
+      return char?.nearChangeable.left === undefined
+        ? this.chars.firstChangeableIndex
         : rangeStart;
     }
 
@@ -119,19 +119,19 @@ export class InputChanger {
       return curCursorPosition;
     }
 
-    if (charToDelete.isPermanent && charToDelete.nearMutable.left) {
-      this.chars.deleteValue(charToDelete.nearMutable.left.index);
+    if (charToDelete.isPermanent && charToDelete.nearChangeable.left) {
+      this.chars.deleteValue(charToDelete.nearChangeable.left.index);
 
-      return charToDelete.nearMutable.left.index;
+      return charToDelete.nearChangeable.left.index;
     }
 
     this.chars.deleteValue(curCursorPosition);
 
-    if (charToDelete.nearMutable.left === undefined) {
-      return this.chars.firstMutableIndex;
+    if (charToDelete.nearChangeable.left === undefined) {
+      return this.chars.firstChangeableIndex;
     }
 
-    return charToDelete.nearMutable.left.index + 1;
+    return charToDelete.nearChangeable.left.index + 1;
   }
 
   private processMultiDelete(
@@ -147,29 +147,29 @@ export class InputChanger {
     prevCursorPosition: number,
     lastInsertedChar?: IChar,
   ): number {
-    if (lastInsertedChar?.nearMutable.right) {
-      return lastInsertedChar.nearMutable.right.index;
+    if (lastInsertedChar?.nearChangeable.right) {
+      return lastInsertedChar.nearChangeable.right.index;
     }
 
     if (lastInsertedChar) {
-      return this.chars.lastMutableIndex + 1;
+      return this.chars.lastChangeableIndex + 1;
     }
 
     const prevCursorPositionChar = this.chars.charAt(prevCursorPosition);
 
     if (!prevCursorPositionChar) {
-      return this.chars.lastMutableIndex + 1;
+      return this.chars.lastChangeableIndex + 1;
     }
 
     if (!prevCursorPositionChar.isPermanent) {
       return prevCursorPosition;
     }
 
-    if (prevCursorPositionChar.nearMutable.right === undefined) {
-      return this.chars.lastMutableIndex + 1;
+    if (prevCursorPositionChar.nearChangeable.right === undefined) {
+      return this.chars.lastChangeableIndex + 1;
     }
 
-    return prevCursorPositionChar.nearMutable.right.index;
+    return prevCursorPositionChar.nearChangeable.right.index;
   }
 
   private getActualCursorPositionAfterDelete(
@@ -178,14 +178,14 @@ export class InputChanger {
     const lastDeletedChar = this.chars.charAt(curCursorPosition);
 
     if (!lastDeletedChar) {
-      return this.chars.firstMutableIndex;
+      return this.chars.firstChangeableIndex;
     }
 
     if (
       lastDeletedChar.isPermanent &&
-      lastDeletedChar.nearMutable.left === undefined
+      lastDeletedChar.nearChangeable.left === undefined
     ) {
-      return this.chars.firstMutableIndex;
+      return this.chars.firstChangeableIndex;
     }
 
     return curCursorPosition;

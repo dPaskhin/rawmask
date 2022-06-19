@@ -4,18 +4,18 @@ import { InputConfig } from '@src/InputConfig/InputConfig';
 export class CharsStringifier {
   public constructor(private readonly inputConfig: InputConfig) {}
 
-  public stringify(chars: IChar[], firstMutableIndex: number): string {
-    if (!this.inputConfig.maskPlaceholder) {
+  public stringify(chars: IChar[], firstChangeableIndex: number): string {
+    if (this.inputConfig.maskPlaceholder === '') {
       return CharsStringifier.stringifyWithEmptyPlaceholder(
         chars,
-        firstMutableIndex,
+        firstChangeableIndex,
       );
     }
 
     return chars.map(({ value }) => value).join('');
   }
 
-  public mutableStringify(chars: IChar[]): string {
+  public stringifyChangeable(chars: IChar[]): string {
     const result: string[] = [];
 
     for (const char of chars) {
@@ -31,22 +31,22 @@ export class CharsStringifier {
 
   private static stringifyWithEmptyPlaceholder(
     chars: IChar[],
-    firstMutableIndex: number,
+    firstChangeableIndex: number,
   ): string {
     const result = [];
 
     for (const [index, char] of chars.entries()) {
-      if (index < firstMutableIndex) {
+      if (index < firstChangeableIndex) {
         result.push(char.value);
 
         continue;
       }
 
-      if (char.isPermanent && char.nearMutable.right?.value === '') {
+      if (char.isPermanent && char.nearChangeable.right?.value === '') {
         break;
       }
 
-      if (char.value) {
+      if (char.value !== '') {
         result.push(char.value);
 
         continue;

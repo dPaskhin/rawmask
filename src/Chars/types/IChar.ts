@@ -4,6 +4,6 @@ export interface IChar {
   index: number;
   value: string;
   isPermanent: boolean;
-  nearMutable: Partial<Record<TDirection, IChar>>;
+  nearChangeable: Partial<Record<TDirection, IChar>>;
   regexp?: RegExp;
 }

@@ -15,9 +15,9 @@ export class CharsPreparer {
     const chars = this.basePrepare();
 
     for (const [idx, char] of chars.entries()) {
-      char.nearMutable = {
-        left: this.findNearMutable(chars, idx, 'left'),
-        right: this.findNearMutable(chars, idx, 'right'),
+      char.nearChangeable = {
+        left: this.findNearChangeable(chars, idx, 'left'),
+        right: this.findNearChangeable(chars, idx, 'right'),
       };
     }
 
@@ -32,7 +32,7 @@ export class CharsPreparer {
           value: this.inputConfig.maskPlaceholder,
           regexp: maskChar,
           isPermanent: false,
-          nearMutable: {},
+          nearChangeable: {},
         };
       }
 
@@ -44,12 +44,12 @@ export class CharsPreparer {
         value: isPermanent ? maskChar : this.inputConfig.maskPlaceholder,
         regexp: charRegexp,
         isPermanent,
-        nearMutable: {},
+        nearChangeable: {},
       };
     });
   }
 
-  private findNearMutable(
+  private findNearChangeable(
     chars: IChar[],
     currentIndex: number,
     direction: TDirection,
@@ -70,6 +70,6 @@ export class CharsPreparer {
       return char;
     }
 
-    return this.findNearMutable(chars, checkingIndex, direction);
+    return this.findNearChangeable(chars, checkingIndex, direction);
   }
 }

@@ -42,11 +42,11 @@ export class MaskedInput {
   }
 
   public get unmaskedValue(): string {
-    return this.#chars.mutableStringify();
+    return this.#chars.stringifyChangeable();
   }
 
   public set unmaskedValue(value: string) {
-    this.#inputChanger.onlyMutableChange(value);
+    this.#inputChanger.onlyChangeableChange(value);
   }
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
