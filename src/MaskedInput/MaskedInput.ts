@@ -62,6 +62,7 @@ export class MaskedInput {
     const prevUnmaskedValue = this.unmaskedValue;
 
     this.#config.mask = mask;
+    this.#chars.baseInit();
 
     this.unmaskedValue = prevUnmaskedValue;
   }

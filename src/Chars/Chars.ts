@@ -29,11 +29,15 @@ export class Chars implements IInitiated {
   }
 
   public init(): void {
+    this.baseInit();
+    this.insertValue(this.inputConfig.defaultValue, this.firstMutableIndex);
+  }
+
+  public baseInit(): void {
     this.items = this.charsPreparer.prepare();
     this.firstMutableIndex = this.getFirstMutableIndex();
     this.lastMutableIndex = this.getLastMutableIndex();
     this.length = this.items.length;
-    this.insertValue(this.inputConfig.defaultValue, this.firstMutableIndex);
   }
 
   public stringify(): string {
