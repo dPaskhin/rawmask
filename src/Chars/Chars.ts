@@ -4,7 +4,7 @@ import type { IChar } from '@src/Chars/types/IChar';
 import type { CharsStringifier } from '@src/Chars/services/CharsStringifier';
 import type { IInitiated } from '@src/Common/types/utils/IInitiated';
 import { findLastIndex } from '@src/Common/utils/findLastIndex';
-import { createArrayFromRange } from '@src/Common/utils/createArrayFromRange';
+import { CharsValueModifier } from '@src/Chars/services/CharsValueModifier';
 
 export class Chars implements IInitiated {
   public firstChangeableIndex!: number;
@@ -19,6 +19,7 @@ export class Chars implements IInitiated {
     private readonly charsPreparer: CharsPreparer,
     private readonly inputConfig: InputConfig,
     private readonly charsStringifier: CharsStringifier,
+    private readonly charsValueModifier: CharsValueModifier,
   ) {}
 
   public set chars(chars: IChar[]) {
@@ -56,89 +57,19 @@ export class Chars implements IInitiated {
   }
 
   public clear(): void {
-    for (const item of this.items) {
-      if (item.isPermanent) {
-        continue;
-      }
-
-      item.value = this.inputConfig.maskPlaceholder;
-    }
+    this.charsValueModifier.clear(this.items);
   }
 
-  /**
-   * @return IChar|undefined (IChar - (last inserted char) if input was succeeded, undefined - if wasn't)
-   */
-  public insertValue(
-    value: string,
-    insertIndex: number,
-    prevInsertedChar?: IChar,
-  ): IChar | undefined {
-    const candidateChar = this.charAt(insertIndex);
-
-    if (!candidateChar) {
-      return prevInsertedChar;
-    }
-
-    for (let i = 0; i < value.length; i += 1) {
-      const valueChar = value[i] as string;
-
-      const ableToInsert = candidateChar.isPermanent
-        ? valueChar === candidateChar.value
-        : !!candidateChar.regexp?.test(valueChar);
-
-      if (ableToInsert) {
-        candidateChar.value = valueChar;
-
-        const restValue = value.slice(i + 1);
-
-        if (restValue.length === 0) {
-          return candidateChar;
-        }
-
-        return this.insertValue(restValue, insertIndex + 1, candidateChar);
-      }
-
-      if (candidateChar.isPermanent) {
-        return this.insertValue(value, insertIndex + 1, prevInsertedChar);
-      }
-    }
-
-    return prevInsertedChar;
+  public insertValue(value: string, insertIndex: number): IChar | undefined {
+    return this.charsValueModifier.insertValue(this.items, value, insertIndex);
   }
 
-  public deleteValue(from: number, to = from): void {
-    const range = from === to ? [from] : createArrayFromRange([from, to]);
-
-    for (const index of range) {
-      const candidateChar = this.charAt(index);
-
-      if (!candidateChar || candidateChar.isPermanent) {
-        continue;
-      }
-
-      candidateChar.value = this.inputConfig.maskPlaceholder;
-    }
+  public deleteValue(from: number, to?: number): void {
+    this.charsValueModifier.deleteValue(this.items, from, to);
   }
 
-  public insertMaskedValue(value: string): void {
-    for (const [index, item] of this.items.entries()) {
-      if (item.isPermanent) {
-        continue;
-      }
-      const candidateValue = value[index];
-
-      if (!candidateValue) {
-        continue;
-      }
-
-      if (item.regexp?.test(candidateValue)) {
-        item.value = candidateValue;
-
-        continue;
-      }
-
-      item.value = this.inputConfig.maskPlaceholder;
-    }
+  public changeAllChars(value: string): void {
+    this.charsValueModifier.changeAllChars(this.items, value);
   }
 
   private getFirstChangeableIndex(): number {

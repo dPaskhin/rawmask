@@ -17,7 +17,7 @@ export class InputChanger {
   }
 
   public fullChange(rawValue: string): void {
-    this.chars.insertMaskedValue(rawValue);
+    this.chars.changeAllChars(rawValue);
 
     this.$input.value = this.chars.stringify();
     this.selectionRange.update(this.selectionRange.previous.start);
