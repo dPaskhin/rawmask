@@ -22,13 +22,6 @@ export class Chars implements IInitiated {
     private readonly charsValueModifier: CharsValueModifier,
   ) {}
 
-  public set chars(chars: IChar[]) {
-    this.items = chars;
-    this.firstChangeableIndex = this.getFirstChangeableIndex();
-    this.lastChangeableIndex = this.getLastChangeableIndex();
-    this.length = this.items.length;
-  }
-
   public init(): void {
     this.baseInit();
     this.insertValue(this.inputConfig.defaultValue, this.firstChangeableIndex);
