@@ -23,7 +23,7 @@ export class CharsValueModifier {
     for (let i = 0; i < value.length; i += 1) {
       const valueChar = value[i] as string;
 
-      const ableToInsert = candidateChar.isPermanent
+      const ableToInsert = candidateChar.permanent
         ? valueChar === candidateChar.value
         : !!candidateChar.regexp?.test(valueChar);
 
@@ -44,7 +44,7 @@ export class CharsValueModifier {
         );
       }
 
-      if (candidateChar.isPermanent) {
+      if (candidateChar.permanent) {
         return this.insertValue(
           chars,
           value,
@@ -66,7 +66,7 @@ export class CharsValueModifier {
     for (const index of range) {
       const candidateChar = chars[index];
 
-      if (!candidateChar || candidateChar.isPermanent) {
+      if (!candidateChar || candidateChar.permanent) {
         continue;
       }
 
@@ -79,7 +79,7 @@ export class CharsValueModifier {
    */
   public clear(chars: IChar[]): void {
     for (const char of chars) {
-      if (char.isPermanent) {
+      if (char.permanent) {
         continue;
       }
 
@@ -92,7 +92,7 @@ export class CharsValueModifier {
    */
   public changeAllChars(chars: IChar[], value: string): void {
     for (const [index, item] of chars.entries()) {
-      if (item.isPermanent) {
+      if (item.permanent) {
         continue;
       }
       const candidateValue = value[index];

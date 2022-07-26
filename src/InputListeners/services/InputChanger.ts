@@ -119,7 +119,7 @@ export class InputChanger {
       return curCursorPosition;
     }
 
-    if (charToDelete.isPermanent && charToDelete.nearChangeable.left) {
+    if (charToDelete.permanent && charToDelete.nearChangeable.left) {
       this.chars.deleteValue(charToDelete.nearChangeable.left.index);
 
       return charToDelete.nearChangeable.left.index;
@@ -161,7 +161,7 @@ export class InputChanger {
       return this.chars.lastChangeableIndex + 1;
     }
 
-    if (!prevCursorPositionChar.isPermanent) {
+    if (!prevCursorPositionChar.permanent) {
       return prevCursorPosition;
     }
 
@@ -182,7 +182,7 @@ export class InputChanger {
     }
 
     if (
-      lastDeletedChar.isPermanent &&
+      lastDeletedChar.permanent &&
       lastDeletedChar.nearChangeable.left === undefined
     ) {
       return this.chars.firstChangeableIndex;

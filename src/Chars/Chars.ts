@@ -66,7 +66,7 @@ export class Chars implements IInitiated {
   }
 
   private getFirstChangeableIndex(): number {
-    const possibleIndex = this.items.findIndex((char) => !char.isPermanent);
+    const possibleIndex = this.items.findIndex((char) => !char.permanent);
 
     if (possibleIndex === -1) {
       return 0;
@@ -78,7 +78,7 @@ export class Chars implements IInitiated {
   private getLastChangeableIndex(): number {
     const possibleIndex = findLastIndex(
       this.items,
-      ({ isPermanent }) => !isPermanent,
+      ({ permanent }) => !permanent,
     );
 
     if (possibleIndex === -1) {

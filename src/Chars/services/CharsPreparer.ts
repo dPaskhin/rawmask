@@ -31,19 +31,19 @@ export class CharsPreparer {
           index: idx,
           value: this.inputConfig.maskPlaceholder,
           regexp: maskChar,
-          isPermanent: false,
+          permanent: false,
           nearChangeable: {},
         };
       }
 
       const charRegexp = this.FORMAT_CHARS[maskChar];
-      const isPermanent = !charRegexp;
+      const permanent = !charRegexp;
 
       return {
         index: idx,
-        value: isPermanent ? maskChar : this.inputConfig.maskPlaceholder,
+        value: permanent ? maskChar : this.inputConfig.maskPlaceholder,
         regexp: charRegexp,
-        isPermanent,
+        permanent,
         nearChangeable: {},
       };
     });
@@ -66,7 +66,7 @@ export class CharsPreparer {
       return undefined;
     }
 
-    if (!char.isPermanent) {
+    if (!char.permanent) {
       return char;
     }
 

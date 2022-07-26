@@ -19,7 +19,7 @@ export class CharsStringifier {
     const result: string[] = [];
 
     for (const char of chars) {
-      if (char.isPermanent || char.value === this.inputConfig.maskPlaceholder) {
+      if (char.permanent || char.value === this.inputConfig.maskPlaceholder) {
         continue;
       }
 
@@ -42,7 +42,7 @@ export class CharsStringifier {
         continue;
       }
 
-      if (char.isPermanent && char.nearChangeable.right?.value === '') {
+      if (char.permanent && char.nearChangeable.right?.value === '') {
         break;
       }
 
