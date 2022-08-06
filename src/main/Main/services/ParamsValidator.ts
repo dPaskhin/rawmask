@@ -1,6 +1,6 @@
-import { IMaskedOptions } from '@src/Common/types/IMaskedOptions';
-import { TextInputMaskError } from '@src/Common/errors/TextInputMaskError';
-import { BaseType } from '@src/Common/enums/BaseType';
+import { IMaskedOptions } from '@src/main/Common/types/IMaskedOptions';
+import { TextInputMaskError } from '@src/main/Common/errors/TextInputMaskError';
+import { BaseType } from '@src/main/Common/enums/BaseType';
 
 export class ParamsValidator {
   public static validate(

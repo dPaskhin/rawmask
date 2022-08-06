@@ -1,4 +1,4 @@
-import type { TDirection } from '@src/Common/types/TDirection';
+import type { TDirection } from '@src/main/Common/types/TDirection';
 
 export interface IChar {
   index: number;

@@ -1,6 +1,6 @@
-import { IChar } from '@src/Chars/types/IChar';
-import { createArrayFromRange } from '@src/Common/utils/createArrayFromRange';
-import { InputConfig } from '@src/InputConfig/InputConfig';
+import { IChar } from '@src/main/Chars/types/IChar';
+import { createArrayFromRange } from '@src/main/Common/utils/createArrayFromRange';
+import { InputConfig } from '@src/main/InputConfig/InputConfig';
 
 export class CharsValueModifier {
   public constructor(public readonly inputConfig: InputConfig) {}

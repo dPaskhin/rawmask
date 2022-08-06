@@ -1,10 +1,10 @@
-import type { InputConfig } from '@src/InputConfig/InputConfig';
-import type { CharsPreparer } from '@src/Chars/services/CharsPreparer';
-import type { IChar } from '@src/Chars/types/IChar';
-import type { CharsStringifier } from '@src/Chars/services/CharsStringifier';
-import type { IInitable } from '@src/Common/types/utils/IInitable';
-import { findLastIndex } from '@src/Common/utils/findLastIndex';
-import { CharsValueModifier } from '@src/Chars/services/CharsValueModifier';
+import type { InputConfig } from '@src/main/InputConfig/InputConfig';
+import type { CharsPreparer } from '@src/main/Chars/services/CharsPreparer';
+import type { IChar } from '@src/main/Chars/types/IChar';
+import type { CharsStringifier } from '@src/main/Chars/services/CharsStringifier';
+import type { IInitable } from '@src/main/Common/types/utils/IInitable';
+import { findLastIndex } from '@src/main/Common/utils/findLastIndex';
+import { CharsValueModifier } from '@src/main/Chars/services/CharsValueModifier';
 
 export class Chars implements IInitable {
   public firstChangeableIndex!: number;

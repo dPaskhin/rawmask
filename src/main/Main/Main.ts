@@ -1,16 +1,16 @@
-import { MaskedInput } from '@src/MaskedInput/MaskedInput';
-import { InputConfig } from '@src/InputConfig/InputConfig';
-import { CharsPreparer } from '@src/Chars/services/CharsPreparer';
-import { CharsStringifier } from '@src/Chars/services/CharsStringifier';
-import { Chars } from '@src/Chars/Chars';
-import { SelectionRange } from '@src/SelectionRange/SelectionRange';
-import { InputChanger } from '@src/InputListeners/services/InputChanger';
-import { InputListeners } from '@src/InputListeners/InputListeners';
-import { ParamsValidator } from '@src/Main/services/ParamsValidator';
-import { InputPreparer } from '@src/Main/services/InputPreparer';
-import { CharsValueModifier } from '@src/Chars/services/CharsValueModifier';
-import type { IMaskedOptions } from '@src/Common/types/IMaskedOptions';
-import type { TMask } from '@src/Common/types/TMask';
+import { MaskedInput } from '@src/main/MaskedInput/MaskedInput';
+import { InputConfig } from '@src/main/InputConfig/InputConfig';
+import { CharsPreparer } from '@src/main/Chars/services/CharsPreparer';
+import { CharsStringifier } from '@src/main/Chars/services/CharsStringifier';
+import { Chars } from '@src/main/Chars/Chars';
+import { SelectionRange } from '@src/main/SelectionRange/SelectionRange';
+import { InputChanger } from '@src/main/InputListeners/services/InputChanger';
+import { InputListeners } from '@src/main/InputListeners/InputListeners';
+import { ParamsValidator } from '@src/main/Main/services/ParamsValidator';
+import { InputPreparer } from '@src/main/Main/services/InputPreparer';
+import { CharsValueModifier } from '@src/main/Chars/services/CharsValueModifier';
+import type { IMaskedOptions } from '@src/main/Common/types/IMaskedOptions';
+import type { TMask } from '@src/main/Common/types/TMask';
 
 export class Main {
   private readonly $input: HTMLInputElement;

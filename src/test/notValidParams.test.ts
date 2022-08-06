@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import { textInputMask } from '@src/index';
-import { TextInputMaskError } from '@src/Common/errors/TextInputMaskError';
+import { textInputMask } from '@src/main';
+import { TextInputMaskError } from '@src/main/Common/errors/TextInputMaskError';
 
 const createInput = (): HTMLInputElement => document.createElement('input');
 

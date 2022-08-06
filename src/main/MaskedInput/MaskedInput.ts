@@ -1,10 +1,10 @@
-import type { Chars } from '@src/Chars/Chars';
-import type { InputListeners } from '@src/InputListeners/InputListeners';
-import type { TMask } from '@src/Common/types/TMask';
-import type { InputConfig } from '@src/InputConfig/InputConfig';
-import type { CharsPreparer } from '@src/Chars/services/CharsPreparer';
-import { SelectionRange } from '@src/SelectionRange/SelectionRange';
-import { InputChanger } from '@src/InputListeners/services/InputChanger';
+import type { Chars } from '@src/main/Chars/Chars';
+import type { InputListeners } from '@src/main/InputListeners/InputListeners';
+import type { TMask } from '@src/main/Common/types/TMask';
+import type { InputConfig } from '@src/main/InputConfig/InputConfig';
+import type { CharsPreparer } from '@src/main/Chars/services/CharsPreparer';
+import { SelectionRange } from '@src/main/SelectionRange/SelectionRange';
+import { InputChanger } from '@src/main/InputListeners/services/InputChanger';
 
 export class MaskedInput {
   #$input: HTMLInputElement;

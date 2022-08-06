@@ -1,4 +1,4 @@
-import { textInputMask } from '@src/index';
+import { textInputMask } from '@src/main';
 
 const createInput = (): HTMLInputElement => document.createElement('input');
 

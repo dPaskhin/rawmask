@@ -1,6 +1,6 @@
-import type { Chars } from '@src/Chars/Chars';
-import type { SelectionRange } from '@src/SelectionRange/SelectionRange';
-import type { IChar } from '@src/Chars/types/IChar';
+import type { Chars } from '@src/main/Chars/Chars';
+import type { SelectionRange } from '@src/main/SelectionRange/SelectionRange';
+import type { IChar } from '@src/main/Chars/types/IChar';
 
 export class InputChanger {
   public constructor(

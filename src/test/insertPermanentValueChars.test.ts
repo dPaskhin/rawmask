@@ -1,7 +1,7 @@
 import userEvent from '@testing-library/user-event';
 
-import { textInputMask } from '@src/index';
-import { clickOnInput } from '@src/Common/__tests__/utils/clickOnInput';
+import { textInputMask } from '@src/main';
+import { clickOnInput } from '@src/test/utils/clickOnInput';
 
 const createInput = (): HTMLInputElement => {
   const $input = document.createElement('input');

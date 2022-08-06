@@ -1,5 +1,5 @@
-import { IChar } from '@src/Chars/types/IChar';
-import { InputConfig } from '@src/InputConfig/InputConfig';
+import { IChar } from '@src/main/Chars/types/IChar';
+import { InputConfig } from '@src/main/InputConfig/InputConfig';
 
 export class CharsStringifier {
   public constructor(private readonly inputConfig: InputConfig) {}

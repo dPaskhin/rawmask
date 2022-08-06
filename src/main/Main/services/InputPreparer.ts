@@ -1,6 +1,6 @@
-import { TextInputMaskError } from '@src/Common/errors/TextInputMaskError';
-import { MASKED_INPUT_ATTRIBUTE } from '@src/Common/utils/constants';
-import { isSelectorValid } from '@src/Common/utils/isSelectorValid';
+import { TextInputMaskError } from '@src/main/Common/errors/TextInputMaskError';
+import { MASKED_INPUT_ATTRIBUTE } from '@src/main/Common/utils/constants';
+import { isSelectorValid } from '@src/main/Common/utils/isSelectorValid';
 
 export class InputPreparer {
   public static prepare(

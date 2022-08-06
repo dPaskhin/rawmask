@@ -1,6 +1,6 @@
-import type { InputConfig } from '@src/InputConfig/InputConfig';
-import type { TDirection } from '@src/Common/types/TDirection';
-import type { IChar } from '@src/Chars/types/IChar';
+import type { InputConfig } from '@src/main/InputConfig/InputConfig';
+import type { TDirection } from '@src/main/Common/types/TDirection';
+import type { IChar } from '@src/main/Chars/types/IChar';
 
 export class CharsPreparer {
   private readonly FORMAT_CHARS: Partial<Record<string, RegExp>> = {

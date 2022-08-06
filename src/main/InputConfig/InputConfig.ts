@@ -1,6 +1,6 @@
-import type { IMaskedOptions } from '@src/Common/types/IMaskedOptions';
-import type { TMask } from '@src/Common/types/TMask';
-import type { IInitable } from '@src/Common/types/utils/IInitable';
+import type { IMaskedOptions } from '@src/main/Common/types/IMaskedOptions';
+import type { TMask } from '@src/main/Common/types/TMask';
+import type { IInitable } from '@src/main/Common/types/utils/IInitable';
 
 export class InputConfig implements IInitable {
   public maskPlaceholder!: string;

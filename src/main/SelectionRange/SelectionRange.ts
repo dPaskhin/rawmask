@@ -1,4 +1,4 @@
-import type { Chars } from '@src/Chars/Chars';
+import type { Chars } from '@src/main/Chars/Chars';
 
 interface ISelectionRange {
   start: number;

@@ -1,6 +1,6 @@
-import type { SelectionRange } from '@src/SelectionRange/SelectionRange';
-import type { InputChanger } from '@src/InputListeners/services/InputChanger';
-import type { IInitable } from '@src/Common/types/utils/IInitable';
+import type { SelectionRange } from '@src/main/SelectionRange/SelectionRange';
+import type { InputChanger } from '@src/main/InputListeners/services/InputChanger';
+import type { IInitable } from '@src/main/Common/types/utils/IInitable';
 
 export class InputListeners implements IInitable {
   private userListenersMap: Array<{
