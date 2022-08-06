@@ -31,7 +31,7 @@ export class Main {
     this.options = options;
   }
 
-  public constructMaskedInput(): MaskedInput {
+  public createMaskedInput(): MaskedInput {
     const config = new InputConfig(this.mask, this.options);
     const charsPreparer = new CharsPreparer(config);
     const charsStringifier = new CharsStringifier(config);

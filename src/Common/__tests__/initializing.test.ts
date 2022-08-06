@@ -60,6 +60,21 @@ describe('Initialing input', () => {
     expect($inputArrayRegexpMask.value).toEqual('s1/2_');
   });
 
+  test('should format initial value with default masked value', () => {
+    const $input = createInput();
+    const $halfInput = createInput();
+
+    textInputMask($input, '+7 (999) 999-99-99', {
+      defaultMaskedValue: '+7 (999) 999-99-99',
+    });
+    textInputMask($halfInput, '+7 (999) 999-99-99', {
+      defaultMaskedValue: '+7 (999) 99',
+    });
+
+    expect($input.value).toEqual('+7 (999) 999-99-99');
+    expect($halfInput.value).toEqual('+7 (999) 99_-__-__');
+  });
+
   test('should format initial value with default value with wrong chars', () => {
     const $input = createInput();
 

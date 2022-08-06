@@ -1,11 +1,13 @@
 import type { IMaskedOptions } from '@src/Common/types/IMaskedOptions';
 import type { TMask } from '@src/Common/types/TMask';
-import type { IInitiated } from '@src/Common/types/utils/IInitiated';
+import type { IInitable } from '@src/Common/types/utils/IInitable';
 
-export class InputConfig implements IInitiated {
+export class InputConfig implements IInitable {
   public maskPlaceholder!: string;
 
   public defaultValue!: string;
+
+  public defaultMaskedValue!: string;
 
   public constructor(public mask: TMask, private options?: IMaskedOptions) {}
 
@@ -14,6 +16,7 @@ export class InputConfig implements IInitiated {
       this.options?.maskPlaceholder,
     );
     this.defaultValue = this.options?.defaultValue || '';
+    this.defaultMaskedValue = this.options?.defaultMaskedValue || '';
   }
 
   private static preparePlaceholder(value?: string): string {

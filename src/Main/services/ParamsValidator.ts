@@ -31,6 +31,7 @@ export class ParamsValidator {
     const optionsTypes: Record<keyof IMaskedOptions, BaseType> = {
       maskPlaceholder: BaseType.STRING,
       defaultValue: BaseType.STRING,
+      defaultMaskedValue: BaseType.STRING,
     };
     const maskedOptions: IMaskedOptions = options;
 

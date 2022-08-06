@@ -99,6 +99,14 @@ describe('Initialize with not valid params', () => {
     ).toThrow(
       new TextInputMaskError('incorrect option "defaultValue" type: number'),
     );
+    expect(() =>
+      // @ts-ignore
+      textInputMask(createInput(), ' ', { defaultMaskedValue: 123 }),
+    ).toThrow(
+      new TextInputMaskError(
+        'incorrect option "defaultMaskedValue" type: number',
+      ),
+    );
   });
 });
 

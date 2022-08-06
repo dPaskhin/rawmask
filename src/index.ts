@@ -10,7 +10,7 @@ export const textInputMask = (
 ): MaskedInput => {
   const main = new Main($input, mask, options);
 
-  return main.constructMaskedInput();
+  return main.createMaskedInput();
 };
 
 export default textInputMask;
