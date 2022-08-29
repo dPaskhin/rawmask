@@ -18,9 +18,5 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Install example modules
-        working-directory: ./example
-        run: npm ci
-
       - name: Eslint and tests
         run: npm run checkup
