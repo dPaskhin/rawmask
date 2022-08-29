@@ -22,8 +22,5 @@ jobs:
         working-directory: ./example
         run: npm ci
 
-      - name: Eslint
-        run: npm run lint
-
-      - name: Tests
-        run: npm run test
+      - name: Eslint and tests
+        run: npm run checkup

@@ -9,8 +9,7 @@
     "sourceType": "module"
   },
   "plugins": [
-    "prefer-arrow",
-    "no-relative-imports"
+    "prefer-arrow"
   ],
   "extends": [
     "eslint:recommended",
@@ -146,7 +145,6 @@
         "plugin:@typescript-eslint/recommended-requiring-type-checking"
       ],
       "rules": {
-        "no-relative-imports/no-relative-imports": "error",
         "@typescript-eslint/array-type": [
           "error",
           {
@@ -251,14 +249,6 @@
       ],
       "rules": {
         "unicorn/prefer-module": "off"
-      }
-    },
-    {
-      "files": [
-        "*.d.ts"
-      ],
-      "rules": {
-        "unicorn/filename-case": "off"
       }
     },
     {

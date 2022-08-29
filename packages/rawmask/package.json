@@ -1,0 +1,27 @@
+{
+  "name": "rawmask",
+  "version": "0.0.0",
+  "description": "Another one vanilla javascript masked input.",
+  "main": "./lib/index.js",
+  "module": "./lib/index.mjs",
+  "types": "./lib/index.d.ts",
+  "scripts": {
+    "build": "npm run clean && rollup --config ./rollup.config.js",
+    "build:analize": "cross-env BUNDLE_ANALYZE=true npm run build",
+    "clean": "rimraf './lib'",
+    "purge": "rimraf './lib' && rimraf './node_modules'",
+    "lint": "tsc --noEmit && eslint \"./**/*.{ts,js}\"",
+    "test": "jest",
+    "checkup": "npm run lint && npm run test"
+  },
+  "author": "Dmitry Paskhin <d.pasxin@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@rollup/plugin-babel": "^5.3.1",
+    "@rollup/plugin-node-resolve": "^13.3.0",
+    "@testing-library/user-event": "^14.4.3",
+    "rollup-plugin-dts": "^4.2.2",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-visualizer": "^5.8.0"
+  }
+}

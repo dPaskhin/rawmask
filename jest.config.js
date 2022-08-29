@@ -4,10 +4,10 @@ const tsconfig = require('./tsconfig.json');
 const moduleNameMapper = require('tsconfig-paths-jest')(tsconfig);
 
 module.exports = {
-  roots: ['<rootDir>/src'],
-  moduleNameMapper,
-  setupFilesAfterEnv: ['./setupTest.js'],
-  testRegex: ['.test.ts$'],
+  rootDir: process.cwd(),
+  preset: 'ts-jest',
   testEnvironment: 'jsdom',
+  testRegex: ['.test.ts$'],
+  moduleNameMapper,
   moduleFileExtensions: ['ts', 'js'],
 };

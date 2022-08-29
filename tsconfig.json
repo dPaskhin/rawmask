@@ -1,22 +1,23 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
-    "target": "ESNext",
-    "module": "ESNext",
+    "moduleResolution": "Node",
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
     "strict": true,
-    "allowJs": true,
-    "skipLibCheck": true,
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "noEmit": true,
-    "noUncheckedIndexedAccess": true,
-    "incremental": true,
-    "isolatedModules": true,
+    "target": "ES5",
+    "module": "ESNext",
+    "rootDir": ".",
+    "baseUrl": ".",
+    "downlevelIteration": true,
+    "lib": [
+      "DOM",
+      "ESNext"
+    ],
     "paths": {
-      "@src/*": [
-        "./src/*"
+      "rawmask": [
+        "./packages/rawmask/src/main"
+      ],
+      "@rawmask/*": [
+        "./packages/*/src/main"
       ]
     },
     "types": [
@@ -26,8 +27,5 @@
   "include": [
     "**/*.ts",
     "**/*.js"
-  ],
-  "exclude": [
-    "node_modules"
   ]
 }
