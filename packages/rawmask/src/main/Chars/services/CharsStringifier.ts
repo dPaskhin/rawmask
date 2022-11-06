@@ -1,8 +1,8 @@
 import { IChar } from '../types/IChar';
-import { InputConfig } from '../../InputConfig/InputConfig';
+import { Config } from '../../Config/Config';
 
 export class CharsStringifier {
-  public constructor(private readonly inputConfig: InputConfig) {}
+  public constructor(private readonly inputConfig: Config) {}
 
   public stringify(chars: IChar[], firstChangeableIndex: number): string {
     if (this.inputConfig.maskPlaceholder === '') {

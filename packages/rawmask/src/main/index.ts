@@ -1,20 +1,20 @@
 import { Main } from './Main/Main';
 import type { TMask } from './Common/types/TMask';
-import type { IMaskedOptions } from './Common/types/IMaskedOptions';
-import type { IMaskedInput } from './MaskedInput/types/IMaskedInput';
+import type { IRawmaskOptions } from './Common/types/IRawmaskOptions';
+import type { IRawmask } from './Rawmask/types/IRawmask';
 
-const rawmask = (
+const createRawmask = (
   $input: HTMLInputElement | string,
   mask: TMask,
-  options?: IMaskedOptions,
-): IMaskedInput => {
+  options?: IRawmaskOptions,
+): IRawmask => {
   const main = new Main($input, mask, options);
 
-  return main.createMaskedInput();
+  return main.createRawmask();
 };
 
-export { rawmask };
+export { createRawmask };
 
 export type { TMask } from './Common/types/TMask';
-export type { IMaskedOptions } from './Common/types/IMaskedOptions';
-export type { IMaskedInput } from './MaskedInput/types/IMaskedInput';
+export type { IRawmaskOptions } from './Common/types/IRawmaskOptions';
+export type { IRawmask } from './Rawmask/types/IRawmask';

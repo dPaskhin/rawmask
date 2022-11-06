@@ -1,4 +1,4 @@
-import type { InputConfig } from '../../InputConfig/InputConfig';
+import type { Config } from '../../Config/Config';
 import type { TDirection } from '../../Common/types/TDirection';
 import type { IChar } from '../types/IChar';
 
@@ -9,7 +9,7 @@ export class CharsPreparer {
     '*': /./,
   };
 
-  public constructor(private readonly inputConfig: InputConfig) {}
+  public constructor(private readonly inputConfig: Config) {}
 
   public prepare(): IChar[] {
     const chars = this.basePrepare();

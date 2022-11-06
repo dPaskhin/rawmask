@@ -1,17 +1,17 @@
 import { TMask } from '../../Common/types/TMask';
 
-export interface IMaskedInput {
-  unmaskedValue: string;
+export interface IRawmask {
+  rawValue: string;
   value: string;
   mask: TMask;
   on: <Name extends keyof HTMLElementEventMap>(
     name: Name,
     handler: (
-      this: IMaskedInput,
-      masked: IMaskedInput,
+      this: IRawmask,
+      rawmask: IRawmask,
       event: HTMLElementEventMap[Name],
     ) => void,
-  ) => IMaskedInput;
+  ) => IRawmask;
   off: (name: keyof HTMLElementEventMap) => void;
   destroy: () => void;
 }

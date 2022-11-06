@@ -1,5 +1,5 @@
 import type { SelectionRange } from '../SelectionRange/SelectionRange';
-import type { InputChanger } from './services/InputChanger';
+import type { InputChanger } from '../InputChanger/InputChanger';
 import type { IInitable } from '../Common/types/utils/IInitable';
 
 export class InputListeners implements IInitable {

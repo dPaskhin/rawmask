@@ -1,20 +1,20 @@
-import type { TMask, IMaskedInput } from 'rawmask';
+import type { TMask, IRawmask } from 'rawmask';
 import type { Chars } from '../Chars/Chars';
 import type { InputListeners } from '../InputListeners/InputListeners';
-import type { InputConfig } from '../InputConfig/InputConfig';
+import type { Config } from '../Config/Config';
 import type { CharsPreparer } from '../Chars/services/CharsPreparer';
-import { SelectionRange } from '../SelectionRange/SelectionRange';
-import { InputChanger } from '../InputListeners/services/InputChanger';
+import type { SelectionRange } from '../SelectionRange/SelectionRange';
+import type { InputChanger } from '../InputChanger/InputChanger';
 import { isMaskEquals } from '../Common/utils/isMaskEquals';
 
-export class MaskedInput implements IMaskedInput {
+export class Rawmask implements IRawmask {
   private $input: HTMLInputElement;
 
   private chars: Chars;
 
   private listeners: InputListeners;
 
-  private config: InputConfig;
+  private config: Config;
 
   private charsPreparer: CharsPreparer;
 
@@ -26,7 +26,7 @@ export class MaskedInput implements IMaskedInput {
     $input: HTMLInputElement,
     chars: Chars,
     listeners: InputListeners,
-    config: InputConfig,
+    config: Config,
     charsPreparer: CharsPreparer,
     selectionRange: SelectionRange,
     inputChanger: InputChanger,
@@ -42,14 +42,11 @@ export class MaskedInput implements IMaskedInput {
     this.init();
   }
 
-  public get unmaskedValue(): string {
+  public get rawValue(): string {
     return this.chars.stringifyChangeable();
   }
 
-  public set unmaskedValue(value: string) {
-    if (value === this.unmaskedValue) {
-      return;
-    }
+  public set rawValue(value: string) {
     this.inputChanger.onlyChangeableChange(value);
   }
 
@@ -59,9 +56,6 @@ export class MaskedInput implements IMaskedInput {
   }
 
   public set value(value: string) {
-    if (value === this.value) {
-      return;
-    }
     this.inputChanger.fullChange(value);
   }
 
@@ -69,24 +63,26 @@ export class MaskedInput implements IMaskedInput {
     if (isMaskEquals(mask, this.config.mask)) {
       return;
     }
-    const prevUnmaskedValue = this.unmaskedValue;
+
+    const prevRawValue = this.rawValue;
 
     this.config.mask = mask;
-    this.chars.baseInit();
+    this.chars.reset();
 
-    this.unmaskedValue = prevUnmaskedValue;
+    this.rawValue = prevRawValue;
   }
 
   public on<Name extends keyof HTMLElementEventMap>(
     name: Name,
     handler: (
-      this: MaskedInput,
-      masked: MaskedInput,
+      this: Rawmask,
+      rawmask: Rawmask,
       event: HTMLElementEventMap[Name],
     ) => void,
-  ): MaskedInput {
+  ): Rawmask {
     this.listeners.on(name, (event) => handler.call(this, this, event));
 
+    // TODO: return unsubscribe
     return this;
   }
 

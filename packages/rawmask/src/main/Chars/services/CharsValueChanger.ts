@@ -1,9 +1,9 @@
 import { IChar } from '../types/IChar';
 import { createArrayFromRange } from '../../Common/utils/createArrayFromRange';
-import { InputConfig } from '../../InputConfig/InputConfig';
+import { Config } from '../../Config/Config';
 
-export class CharsValueModifier {
-  public constructor(public readonly inputConfig: InputConfig) {}
+export class CharsValueChanger {
+  public constructor(public readonly inputConfig: Config) {}
 
   /**
    * @return IChar|undefined (IChar - (last inserted char) if input was succeeded, undefined - if wasn't)
@@ -89,6 +89,8 @@ export class CharsValueModifier {
 
   /**
    * This method is like a insertValue method but in this case all the chars is changed value.
+   *
+   * TODO: optimize - if value is empty or less than chars length we need to break the loop
    */
   public changeAllChars(chars: IChar[], value: string): void {
     for (const [index, item] of chars.entries()) {

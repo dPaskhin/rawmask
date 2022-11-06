@@ -48,7 +48,7 @@ describe('Initialing input', () => {
       {
         mask: '+7 (999) 999-99-99',
         maskPlaceholder: '*',
-        defaultValue: '1234',
+        defaultRawValue: '1234',
       },
       'star',
     );
@@ -56,21 +56,21 @@ describe('Initialing input', () => {
       {
         mask: '+7 (999) 999-99-99',
         maskPlaceholder: '',
-        defaultValue: '123456',
+        defaultRawValue: '123456',
       },
       'space',
     );
     const { node: $inputArrayMask } = await createInput(
       {
         mask: ['9', '9', '/', '9', '9', '/', '9', '9'],
-        defaultValue: '1234',
+        defaultRawValue: '1234',
       },
       'array',
     );
     const { node: $inputArrayRegexpMask } = await createInput(
       {
         mask: [/./, '9', '/', /\d/, '9'],
-        defaultValue: 's12',
+        defaultRawValue: 's12',
       },
       'regex',
     );
@@ -84,12 +84,12 @@ describe('Initialing input', () => {
   test('should format initial value with default masked value', async () => {
     const { node: $input } = await createInput({
       mask: '+7 (999) 999-99-99',
-      defaultMaskedValue: '+7 (999) 999-99-99',
+      defaultValue: '+7 (999) 999-99-99',
     });
     const { node: $halfInput } = await createInput(
       {
         mask: '+7 (999) 999-99-99',
-        defaultMaskedValue: '+7 (999) 99',
+        defaultValue: '+7 (999) 99',
       },
       'half',
     );
@@ -101,7 +101,7 @@ describe('Initialing input', () => {
   test('should format initial value with default value with wrong chars', async () => {
     const { node: $input } = await createInput({
       mask: '+7 (999) 999-99-99',
-      defaultValue: '1234asd567',
+      defaultRawValue: '1234asd567',
     });
 
     expect($input.value).toEqual('+7 (123) 456-7_-__');
@@ -110,7 +110,7 @@ describe('Initialing input', () => {
   test('should stay not changed value', async () => {
     const { node: $input } = await createInput({
       mask: '-----',
-      defaultValue: '123',
+      defaultRawValue: '123',
     });
 
     expect($input.value).toEqual('-----');

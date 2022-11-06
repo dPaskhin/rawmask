@@ -1,5 +1,5 @@
 import { TextInputMaskError } from '../../Common/errors/TextInputMaskError';
-import { MASKED_INPUT_ATTRIBUTE } from '../../Common/utils/constants';
+import { RAWMASK_INPUT_ATTRIBUTE } from '../../Common/utils/constants';
 import { isSelectorValid } from '../../Common/utils/isSelectorValid';
 
 export class InputPreparer {
@@ -8,7 +8,7 @@ export class InputPreparer {
   ): HTMLInputElement | never {
     const $validatingInput = InputPreparer.getInput($rawInput);
 
-    if ($validatingInput.hasAttribute(MASKED_INPUT_ATTRIBUTE)) {
+    if ($validatingInput.hasAttribute(RAWMASK_INPUT_ATTRIBUTE)) {
       throw new TextInputMaskError(
         typeof $rawInput === 'string'
           ? `you trying add mask to masked input with selector "${$rawInput}"`
@@ -16,7 +16,7 @@ export class InputPreparer {
       );
     }
 
-    $validatingInput.setAttribute(MASKED_INPUT_ATTRIBUTE, '');
+    $validatingInput.setAttribute(RAWMASK_INPUT_ATTRIBUTE, '');
 
     return $validatingInput;
   }

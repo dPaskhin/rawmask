@@ -1,10 +1,10 @@
-import type { InputConfig } from '../InputConfig/InputConfig';
+import type { Config } from '../Config/Config';
 import type { CharsPreparer } from './services/CharsPreparer';
 import type { IChar } from './types/IChar';
 import type { CharsStringifier } from './services/CharsStringifier';
 import type { IInitable } from '../Common/types/utils/IInitable';
+import type { CharsValueChanger } from './services/CharsValueChanger';
 import { findLastIndex } from '../Common/utils/findLastIndex';
-import { CharsValueModifier } from './services/CharsValueModifier';
 
 export class Chars implements IInitable {
   public firstChangeableIndex!: number;
@@ -17,18 +17,18 @@ export class Chars implements IInitable {
 
   public constructor(
     private readonly charsPreparer: CharsPreparer,
-    private readonly inputConfig: InputConfig,
+    private readonly config: Config,
     private readonly charsStringifier: CharsStringifier,
-    private readonly charsValueModifier: CharsValueModifier,
+    private readonly charsValueChanger: CharsValueChanger,
   ) {}
 
   public init(): void {
-    this.baseInit();
-    this.changeAllChars(this.inputConfig.defaultMaskedValue);
-    this.insertValue(this.inputConfig.defaultValue, this.firstChangeableIndex);
+    this.reset();
+    this.changeAllChars(this.config.defaultValue);
+    this.insertValue(this.config.defaultRawValue, this.firstChangeableIndex);
   }
 
-  public baseInit(): void {
+  public reset(): void {
     this.items = this.charsPreparer.prepare();
     this.firstChangeableIndex = this.getFirstChangeableIndex();
     this.lastChangeableIndex = this.getLastChangeableIndex();
@@ -51,19 +51,19 @@ export class Chars implements IInitable {
   }
 
   public clear(): void {
-    this.charsValueModifier.clear(this.items);
+    this.charsValueChanger.clear(this.items);
   }
 
   public insertValue(value: string, insertIndex: number): IChar | undefined {
-    return this.charsValueModifier.insertValue(this.items, value, insertIndex);
+    return this.charsValueChanger.insertValue(this.items, value, insertIndex);
   }
 
   public deleteValue(from: number, to?: number): void {
-    this.charsValueModifier.deleteValue(this.items, from, to);
+    this.charsValueChanger.deleteValue(this.items, from, to);
   }
 
   public changeAllChars(value: string): void {
-    this.charsValueModifier.changeAllChars(this.items, value);
+    this.charsValueChanger.changeAllChars(this.items, value);
   }
 
   private getFirstChangeableIndex(): number {

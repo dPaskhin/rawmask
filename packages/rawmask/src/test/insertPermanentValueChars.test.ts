@@ -1,6 +1,6 @@
 import userEvent from '@testing-library/user-event';
 
-import { rawmask } from '../main';
+import { createRawmask } from '../main';
 import { clickOnInput } from './utils/clickOnInput';
 
 const createInput = (): HTMLInputElement => {
@@ -15,7 +15,7 @@ describe('Insert permanent value chars', () => {
   test('should stay not changed value', async () => {
     const $input = createInput();
 
-    rawmask($input, '12+999');
+    createRawmask($input, '12+999');
 
     await clickOnInput($input);
 

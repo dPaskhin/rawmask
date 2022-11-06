@@ -1,6 +1,6 @@
-import type { Chars } from '../../Chars/Chars';
-import type { SelectionRange } from '../../SelectionRange/SelectionRange';
-import type { IChar } from '../../Chars/types/IChar';
+import type { Chars } from '../Chars/Chars';
+import type { SelectionRange } from '../SelectionRange/SelectionRange';
+import type { IChar } from '../Chars/types/IChar';
 
 export class InputChanger {
   public constructor(
@@ -17,6 +17,10 @@ export class InputChanger {
   }
 
   public fullChange(rawValue: string): void {
+    if (rawValue === this.chars.stringify()) {
+      return;
+    }
+
     this.chars.changeAllChars(rawValue);
 
     this.$input.value = this.chars.stringify();
@@ -24,6 +28,10 @@ export class InputChanger {
   }
 
   public onlyChangeableChange(value: string): void {
+    if (value === this.chars.stringifyChangeable()) {
+      return;
+    }
+
     this.chars.clear();
     this.chars.insertValue(value, this.chars.firstChangeableIndex);
 

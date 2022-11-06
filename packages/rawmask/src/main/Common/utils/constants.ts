@@ -1,1 +1,1 @@
-export const MASKED_INPUT_ATTRIBUTE = 'masked';
+export const RAWMASK_INPUT_ATTRIBUTE = 'rawmask-input';

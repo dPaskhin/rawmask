@@ -1,27 +1,28 @@
-import type { IMaskedOptions, TMask } from 'rawmask';
-import { MaskedInput } from '../MaskedInput/MaskedInput';
-import { InputConfig } from '../InputConfig/InputConfig';
+import type { IRawmaskOptions, TMask } from 'rawmask';
+import { Rawmask } from '../Rawmask/Rawmask';
+import { Config } from '../Config/Config';
 import { CharsPreparer } from '../Chars/services/CharsPreparer';
 import { CharsStringifier } from '../Chars/services/CharsStringifier';
 import { Chars } from '../Chars/Chars';
 import { SelectionRange } from '../SelectionRange/SelectionRange';
-import { InputChanger } from '../InputListeners/services/InputChanger';
+import { InputChanger } from '../InputChanger/InputChanger';
 import { InputListeners } from '../InputListeners/InputListeners';
 import { ParamsValidator } from './services/ParamsValidator';
 import { InputPreparer } from './services/InputPreparer';
-import { CharsValueModifier } from '../Chars/services/CharsValueModifier';
+import { CharsValueChanger } from '../Chars/services/CharsValueChanger';
 
+// TODO: rename to Fabric
 export class Main {
   private readonly $input: HTMLInputElement;
 
   private readonly mask: TMask;
 
-  private readonly options?: IMaskedOptions;
+  private readonly options?: IRawmaskOptions;
 
   public constructor(
     $input: HTMLInputElement | string,
     mask: TMask,
-    options?: IMaskedOptions,
+    options?: IRawmaskOptions,
   ) {
     ParamsValidator.validate($input, mask, options);
 
@@ -30,11 +31,11 @@ export class Main {
     this.options = options;
   }
 
-  public createMaskedInput(): MaskedInput {
-    const config = new InputConfig(this.mask, this.options);
+  public createRawmask(): Rawmask {
+    const config = new Config(this.mask, this.options);
     const charsPreparer = new CharsPreparer(config);
     const charsStringifier = new CharsStringifier(config);
-    const charsValueModifier = new CharsValueModifier(config);
+    const charsValueModifier = new CharsValueChanger(config);
     const chars = new Chars(
       charsPreparer,
       config,
@@ -45,7 +46,7 @@ export class Main {
     const changer = new InputChanger(this.$input, chars, selectionRange);
     const listeners = new InputListeners(this.$input, selectionRange, changer);
 
-    return new MaskedInput(
+    return new Rawmask(
       this.$input,
       chars,
       listeners,

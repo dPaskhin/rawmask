@@ -1,4 +1,4 @@
-import type { IMaskedOptions } from 'rawmask';
+import type { IRawmaskOptions } from 'rawmask';
 import { TextInputMaskError } from '../../Common/errors/TextInputMaskError';
 import { BaseType } from '../../Common/enums/BaseType';
 
@@ -28,23 +28,25 @@ export class ParamsValidator {
       throw new TextInputMaskError('options should be an object');
     }
 
-    const optionsTypes: Record<keyof IMaskedOptions, BaseType> = {
+    const optionsTypes: Record<keyof IRawmaskOptions, BaseType> = {
       maskPlaceholder: BaseType.STRING,
+      defaultRawValue: BaseType.STRING,
       defaultValue: BaseType.STRING,
-      defaultMaskedValue: BaseType.STRING,
     };
-    const maskedOptions: IMaskedOptions = options;
+    const rawmaskOptions: IRawmaskOptions = options;
 
     for (const [key, type] of Object.entries(optionsTypes)) {
-      const optionName = key as keyof IMaskedOptions;
+      const optionName = key as keyof IRawmaskOptions;
 
-      if (maskedOptions[optionName] === undefined) {
+      if (rawmaskOptions[optionName] === undefined) {
         continue;
       }
 
-      if (typeof maskedOptions[optionName] !== type) {
+      if (typeof rawmaskOptions[optionName] !== type) {
         throw new TextInputMaskError(
-          `incorrect option "${key}" type: ${typeof maskedOptions[optionName]}`,
+          `incorrect option "${key}" type: ${typeof rawmaskOptions[
+            optionName
+          ]}`,
         );
       }
     }

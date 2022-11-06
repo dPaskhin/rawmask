@@ -6,56 +6,55 @@ import {
   useEffect,
   useRef,
 } from 'react';
-import { IMaskedInput, IMaskedOptions, rawmask, TMask } from 'rawmask';
+import { IRawmask, IRawmaskOptions, createRawmask, TMask } from 'rawmask';
 
 import { createSyntheticEvent } from './utils/createSyntheticEvent';
 
 export interface IRawmaskProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, 'defaultValue'>,
-    IMaskedOptions {
+    IRawmaskOptions {
   mask: TMask;
-  unmaskedValue?: string;
+  rawValue?: string;
   value?: string;
 }
 
 export const Rawmask: FC<IRawmaskProps> = ({
   mask,
   maskPlaceholder,
+  defaultRawValue,
   defaultValue,
-  defaultMaskedValue,
   value,
   onChange,
-  unmaskedValue,
+  rawValue,
   ...props
 }) => {
   const ref = useRef<HTMLInputElement>(null);
-  const maskedInputRef = useRef<IMaskedInput>();
+  const rawmaskRef = useRef<IRawmask>();
 
   useEffect(() => {
     if (!ref.current) {
       return;
     }
 
-    maskedInputRef.current ||= rawmask(ref.current, mask, {
+    rawmaskRef.current ||= createRawmask(ref.current, mask, {
       maskPlaceholder,
-      defaultMaskedValue,
       defaultValue,
+      defaultRawValue,
     });
-  }, [mask, maskPlaceholder, defaultMaskedValue, defaultValue]);
+  }, [mask, maskPlaceholder, defaultValue, defaultRawValue]);
 
   useEffect(() => {
-    if (!maskedInputRef.current) {
+    if (!rawmaskRef.current) {
       return;
     }
 
-    maskedInputRef.current.mask = mask;
-    maskedInputRef.current.value = value || maskedInputRef.current.value;
-    maskedInputRef.current.unmaskedValue =
-      unmaskedValue || maskedInputRef.current.unmaskedValue;
-  }, [mask, value, unmaskedValue]);
+    rawmaskRef.current.mask = mask;
+    rawmaskRef.current.value = value || rawmaskRef.current.value;
+    rawmaskRef.current.rawValue = rawValue || rawmaskRef.current.rawValue;
+  }, [mask, value, rawValue]);
 
   useEffect(() => {
-    maskedInputRef.current?.on('input', (masked, event) => {
+    rawmaskRef.current?.on('input', (masked, event) => {
       if (!onChange) {
         return;
       }
@@ -69,12 +68,12 @@ export const Rawmask: FC<IRawmaskProps> = ({
       onChange(changeEvent);
     });
 
-    return () => maskedInputRef.current?.off('input');
+    return () => rawmaskRef.current?.off('input');
   }, [onChange]);
 
   useEffect(
     () => () => {
-      maskedInputRef.current?.destroy();
+      rawmaskRef.current?.destroy();
     },
     [],
   );
