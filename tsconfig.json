@@ -16,16 +16,12 @@
       "rawmask": [
         "./packages/rawmask/src/main"
       ],
-      "@rawmask/*": [
-        "./packages/*/src/main"
+      "@rawmask/react": [
+        "./packages/react-rawmask/src/main"
       ]
     },
     "types": [
       "jest"
     ]
-  },
-  "include": [
-    "**/*.ts",
-    "**/*.js"
-  ]
+  }
 }

@@ -4,3 +4,4 @@ tsconfig.tsbuildinfo
 packages/*/lib
 packages/*/node_modules
 packages/*/stats.html
+packages/*/example/dist

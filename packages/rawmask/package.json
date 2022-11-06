@@ -3,16 +3,24 @@
   "version": "0.0.0",
   "description": "Another one vanilla javascript masked input.",
   "main": "./lib/index.js",
-  "module": "./lib/index.mjs",
   "types": "./lib/index.d.ts",
+  "exports": {
+    "default": "./lib/index.js",
+    "import": "./lib/index.mjs",
+    "require": "./lib/index.cjs"
+  },
+  "files": [
+    "lib"
+  ],
   "scripts": {
-    "build": "npm run clean && rollup --config ./rollup.config.js",
-    "build:analize": "cross-env BUNDLE_ANALYZE=true npm run build",
-    "clean": "rimraf './lib'",
-    "purge": "rimraf './lib' && rimraf './node_modules'",
-    "lint": "tsc --noEmit && eslint \"./**/*.{ts,js}\"",
-    "test": "jest",
-    "checkup": "npm run lint && npm run test"
+    "build:lib": "npm run clean:lib && rollup --config ./rollup.config.js",
+    "build:analize": "cross-env BUNDLE_ANALYZE=true npm run build:lib",
+    "watch:example": "",
+    "clean:lib": "rimraf './lib'",
+    "clean:all": "npm run clean:lib && rimraf './node_modules'",
+    "check:lint": "tsc --noEmit && eslint \"./**/*.{ts,js}\" --fix",
+    "check:test": "jest",
+    "check:all": "npm run check:lint && npm run check:test"
   },
   "author": "Dmitry Paskhin <d.pasxin@gmail.com>",
   "license": "MIT",
@@ -20,7 +28,7 @@
     "@rollup/plugin-babel": "^5.3.1",
     "@rollup/plugin-node-resolve": "^13.3.0",
     "@testing-library/user-event": "^14.4.3",
-    "rollup-plugin-dts": "^4.2.2",
+    "rollup-plugin-dts": "^4.2.3",
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-visualizer": "^5.8.0"
   }

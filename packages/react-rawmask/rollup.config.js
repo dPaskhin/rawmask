@@ -3,13 +3,18 @@ import dts from 'rollup-plugin-dts';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { babel } from '@rollup/plugin-babel';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
 
 import packageJson from './package.json';
 
 const createOutput = (file, format) => ({
   file,
   format,
-  name: packageJson.name,
+  name: 'Rawmask',
+  globals: {
+    react: 'React',
+    rawmask: 'rawmask',
+  },
 });
 
 export default [
@@ -26,11 +31,13 @@ export default [
         babelHelpers: 'bundled',
         extensions: ['.ts'],
       }),
+      commonjs(),
       terser(),
       process.env.BUNDLE_ANALYZE === 'true'
         ? visualizer({ open: true, gzipSize: true, brotliSize: true })
         : undefined,
     ],
+    external: ['react', 'rawmask'],
   },
   {
     input: './src/main/index.ts',

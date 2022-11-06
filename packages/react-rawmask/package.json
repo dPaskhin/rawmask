@@ -1,0 +1,52 @@
+{
+  "name": "@rawmask/react",
+  "version": "0.0.0",
+  "description": "React plugin for rawmask.",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    "default": "./lib/index.js",
+    "import": "./lib/index.mjs",
+    "require": "./lib/index.cjs"
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "build:lib": "npm run clean:lib && rollup --config ./rollup.config.js",
+    "build:analize": "cross-env BUNDLE_ANALYZE=true npm run build:lib",
+    "watch:example": "rollup --config ./rollup.example.config.js --watch",
+    "clean:lib": "rimraf './lib' && rimraf './example/dist'",
+    "clean:all": "npm run clean:lib && rimraf './node_modules'",
+    "check:lint": "tsc --noEmit && eslint \"./**/*.{ts,js,tsx}\" --fix",
+    "check:test": "jest",
+    "check:all": "npm run check:lint && npm run check:test"
+  },
+  "author": "Dmitry Paskhin <d.pasxin@gmail.com>",
+  "license": "MIT",
+  "peerDependencies": {
+    "rawmask": "^0.0.0",
+    "react": "^16.8.0 || ^17.0.0 || ^18.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.19.6",
+    "@babel/preset-env": "^7.19.4",
+    "@babel/preset-react": "^7.18.6",
+    "@babel/preset-typescript": "^7.18.6",
+    "@rollup/plugin-babel": "^5.3.1",
+    "@rollup/plugin-commonjs": "^23.0.2",
+    "@rollup/plugin-html": "^1.0.1",
+    "@rollup/plugin-node-resolve": "^13.3.0",
+    "@rollup/plugin-replace": "^5.0.1",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^14.4.3",
+    "@types/react": "^18.0.21",
+    "babel-jest": "^29.2.2",
+    "babel-loader": "^9.0.0",
+    "react-dom": "^18.2.0",
+    "rollup-plugin-dts": "^4.2.2",
+    "rollup-plugin-serve": "^2.0.1",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-visualizer": "^5.8.0"
+  }
+}

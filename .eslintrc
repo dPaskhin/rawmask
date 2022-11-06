@@ -43,7 +43,8 @@
       {
         "singleQuote": true,
         "trailingComma": "all",
-        "tabWidth": 2
+        "tabWidth": 2,
+        "jsxSingleQuote": true
       }
     ],
     "unicorn/filename-case": [
@@ -256,7 +257,8 @@
         "jest": true
       },
       "files": [
-        "*.test.ts"
+        "*.test.ts",
+        "*.test.tsx"
       ],
       "rules": {
         "sonarjs/no-duplicate-string": "off"

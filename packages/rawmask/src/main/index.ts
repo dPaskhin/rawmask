@@ -1,6 +1,6 @@
-import type { IMaskedOptions } from './Common/types/IMaskedOptions';
-import type { TMask } from './Common/types/TMask';
 import { Main } from './Main/Main';
+import type { TMask } from './Common/types/TMask';
+import type { IMaskedOptions } from './Common/types/IMaskedOptions';
 import type { IMaskedInput } from './MaskedInput/types/IMaskedInput';
 
 const rawmask = (
@@ -15,5 +15,6 @@ const rawmask = (
 
 export { rawmask };
 
+export type { TMask } from './Common/types/TMask';
 export type { IMaskedOptions } from './Common/types/IMaskedOptions';
 export type { IMaskedInput } from './MaskedInput/types/IMaskedInput';

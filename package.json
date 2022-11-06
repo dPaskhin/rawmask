@@ -1,22 +1,25 @@
 {
   "private": true,
   "scripts": {
-    "build": "npm run build --workspaces",
+    "build:lib": "npm run build:lib --workspaces",
     "build:analize": "npm run build:analize --workspaces",
-    "clean": "npm run clean --workspaces",
-    "purge": "npm run purge --workspaces && rimraf './node_modules'",
-    "lint": "npm run lint --workspaces",
-    "test": "npm run test --workspaces",
-    "checkup": "npm run checkup --workspaces"
+    "watch:example": "npm run watch:example --workspaces",
+    "clean:lib": "npm run clean:lib --workspaces",
+    "clean:all": "npm run clean:all --workspaces && rimraf './node_modules'",
+    "check:lint": "npm run check:lint --workspaces",
+    "check:test": "npm run check:test --workspaces",
+    "check:all": "npm run check:all --workspaces"
   },
   "workspaces": [
-    "./packages/rawmask"
+    "./packages/rawmask",
+    "./packages/react-rawmask"
   ],
   "devDependencies": {
     "@babel/plugin-transform-typescript": "^7.18.12",
     "@babel/preset-env": "^7.18.10",
     "@rollup/plugin-babel": "^5.3.1",
     "@rollup/plugin-node-resolve": "^13.3.0",
+    "@rollup/plugin-replace": "^5.0.1",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
     "@typescript-eslint/eslint-plugin": "^5.9.1",
