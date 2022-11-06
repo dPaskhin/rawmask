@@ -1,5 +1,4 @@
-import type { IMaskedOptions } from '../Common/types/IMaskedOptions';
-import type { TMask } from '../Common/types/TMask';
+import type { IMaskedOptions, TMask } from 'rawmask';
 import type { IInitable } from '../Common/types/utils/IInitable';
 
 export class InputConfig implements IInitable {

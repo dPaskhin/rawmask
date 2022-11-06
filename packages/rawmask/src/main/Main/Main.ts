@@ -1,3 +1,4 @@
+import type { IMaskedOptions, TMask } from 'rawmask';
 import { MaskedInput } from '../MaskedInput/MaskedInput';
 import { InputConfig } from '../InputConfig/InputConfig';
 import { CharsPreparer } from '../Chars/services/CharsPreparer';
@@ -9,8 +10,6 @@ import { InputListeners } from '../InputListeners/InputListeners';
 import { ParamsValidator } from './services/ParamsValidator';
 import { InputPreparer } from './services/InputPreparer';
 import { CharsValueModifier } from '../Chars/services/CharsValueModifier';
-import type { IMaskedOptions } from '../Common/types/IMaskedOptions';
-import type { TMask } from '../Common/types/TMask';
 
 export class Main {
   private readonly $input: HTMLInputElement;

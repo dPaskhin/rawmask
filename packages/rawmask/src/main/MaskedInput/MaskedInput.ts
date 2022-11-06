@@ -1,9 +1,8 @@
+import type { TMask, IMaskedInput } from 'rawmask';
 import type { Chars } from '../Chars/Chars';
 import type { InputListeners } from '../InputListeners/InputListeners';
-import type { TMask } from '../Common/types/TMask';
 import type { InputConfig } from '../InputConfig/InputConfig';
 import type { CharsPreparer } from '../Chars/services/CharsPreparer';
-import type { IMaskedInput } from './types/IMaskedInput';
 import { SelectionRange } from '../SelectionRange/SelectionRange';
 import { InputChanger } from '../InputListeners/services/InputChanger';
 import { isMaskEquals } from '../Common/utils/isMaskEquals';

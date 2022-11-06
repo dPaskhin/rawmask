@@ -1,4 +1,4 @@
-import { IMaskedOptions } from '../../Common/types/IMaskedOptions';
+import type { IMaskedOptions } from 'rawmask';
 import { TextInputMaskError } from '../../Common/errors/TextInputMaskError';
 import { BaseType } from '../../Common/enums/BaseType';
 
