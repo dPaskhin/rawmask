@@ -60,8 +60,8 @@ export class CharsValueModifier {
   /**
    * Delete value from chars by range. Range is set up by arguments.
    */
-  public deleteValue(chars: IChar[], from: number, to = from): void {
-    const range = from === to ? [from] : createArrayFromRange([from, to]);
+  public deleteValue(chars: IChar[], from: number, to?: number): void {
+    const range = createArrayFromRange([from, to]);
 
     for (const index of range) {
       const candidateChar = chars[index];

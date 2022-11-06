@@ -66,7 +66,7 @@ export class MaskedInput implements IMaskedInput {
   }
 
   public set mask(mask: TMask) {
-    if (isMaskEquals(mask, this.mask)) {
+    if (isMaskEquals(mask, this.config.mask)) {
       return;
     }
     const prevUnmaskedValue = this.unmaskedValue;
