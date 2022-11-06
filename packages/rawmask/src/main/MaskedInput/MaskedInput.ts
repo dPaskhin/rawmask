@@ -6,6 +6,7 @@ import type { CharsPreparer } from '../Chars/services/CharsPreparer';
 import type { IMaskedInput } from './types/IMaskedInput';
 import { SelectionRange } from '../SelectionRange/SelectionRange';
 import { InputChanger } from '../InputListeners/services/InputChanger';
+import { isMaskEquals } from '../Common/utils/isMaskEquals';
 
 export class MaskedInput implements IMaskedInput {
   private $input: HTMLInputElement;
@@ -47,6 +48,9 @@ export class MaskedInput implements IMaskedInput {
   }
 
   public set unmaskedValue(value: string) {
+    if (value === this.unmaskedValue) {
+      return;
+    }
     this.inputChanger.onlyChangeableChange(value);
   }
 
@@ -56,10 +60,16 @@ export class MaskedInput implements IMaskedInput {
   }
 
   public set value(value: string) {
+    if (value === this.value) {
+      return;
+    }
     this.inputChanger.fullChange(value);
   }
 
   public set mask(mask: TMask) {
+    if (isMaskEquals(mask, this.mask)) {
+      return;
+    }
     const prevUnmaskedValue = this.unmaskedValue;
 
     this.config.mask = mask;
