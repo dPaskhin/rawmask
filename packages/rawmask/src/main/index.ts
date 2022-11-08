@@ -1,4 +1,4 @@
-import { Main } from './Main/Main';
+import { RawmaskFactory } from './Rawmask/factory/RawmaskFactory';
 import type { TMask } from './Common/types/TMask';
 import type { IRawmaskOptions } from './Common/types/IRawmaskOptions';
 import type { IRawmask } from './Rawmask/types/IRawmask';
@@ -7,11 +7,7 @@ const createRawmask = (
   $input: HTMLInputElement | string,
   mask: TMask,
   options?: IRawmaskOptions,
-): IRawmask => {
-  const main = new Main($input, mask, options);
-
-  return main.createRawmask();
-};
+): IRawmask => new RawmaskFactory($input, mask, options).createRawmask();
 
 export { createRawmask };
 

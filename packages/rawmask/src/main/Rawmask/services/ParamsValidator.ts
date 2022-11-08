@@ -1,4 +1,4 @@
-import type { IRawmaskOptions } from 'rawmask';
+import type { IRawmaskOptions } from 'packages/rawmask/lib';
 import { TextInputMaskError } from '../../Common/errors/TextInputMaskError';
 import { BaseType } from '../../Common/enums/BaseType';
 

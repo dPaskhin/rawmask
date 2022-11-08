@@ -1,9 +1,7 @@
-import type { TMask, IRawmask } from 'rawmask';
+import type { IRawmask, TMask } from 'rawmask';
 import type { Chars } from '../Chars/Chars';
 import type { InputListeners } from '../InputListeners/InputListeners';
 import type { Config } from '../Config/Config';
-import type { CharsPreparer } from '../Chars/services/CharsPreparer';
-import type { SelectionRange } from '../SelectionRange/SelectionRange';
 import type { InputChanger } from '../InputChanger/InputChanger';
 import { isMaskEquals } from '../Common/utils/isMaskEquals';
 
@@ -16,10 +14,6 @@ export class Rawmask implements IRawmask {
 
   private config: Config;
 
-  private charsPreparer: CharsPreparer;
-
-  private selectionRange: SelectionRange;
-
   private inputChanger: InputChanger;
 
   public constructor(
@@ -27,16 +21,12 @@ export class Rawmask implements IRawmask {
     chars: Chars,
     listeners: InputListeners,
     config: Config,
-    charsPreparer: CharsPreparer,
-    selectionRange: SelectionRange,
     inputChanger: InputChanger,
   ) {
     this.$input = $input;
     this.chars = chars;
     this.listeners = listeners;
     this.config = config;
-    this.charsPreparer = charsPreparer;
-    this.selectionRange = selectionRange;
     this.inputChanger = inputChanger;
 
     this.init();
