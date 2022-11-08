@@ -56,7 +56,7 @@ export class Rawmask implements IRawmask {
 
     const prevRawValue = this.rawValue;
 
-    this.config.mask = mask;
+    this.config.updateMask(mask);
     this.chars.reset();
 
     this.rawValue = prevRawValue;
@@ -72,7 +72,6 @@ export class Rawmask implements IRawmask {
   ): Rawmask {
     this.listeners.on(name, (event) => handler.call(this, this, event));
 
-    // TODO: return unsubscribe
     return this;
   }
 

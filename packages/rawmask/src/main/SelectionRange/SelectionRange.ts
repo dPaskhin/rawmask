@@ -1,4 +1,4 @@
-import type { Chars } from '../Chars/Chars';
+import type { Config } from '../Config/Config';
 
 interface ISelectionRange {
   start: number;
@@ -13,7 +13,7 @@ export class SelectionRange {
 
   public constructor(
     private readonly $input: HTMLInputElement,
-    private readonly chars: Chars,
+    private readonly config: Config,
   ) {}
 
   public get range(): ISelectionRange {
@@ -47,8 +47,8 @@ export class SelectionRange {
       return 0;
     }
 
-    if (value > this.chars.length) {
-      return this.chars.length;
+    if (value > this.config.inputSize) {
+      return this.config.inputSize;
     }
 
     return value;

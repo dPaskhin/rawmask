@@ -8,6 +8,8 @@ export class Config implements IInitable {
 
   public defaultValue!: string;
 
+  public inputSize!: number;
+
   public constructor(public mask: TMask, private options?: IRawmaskOptions) {}
 
   public init(): void {
@@ -16,6 +18,12 @@ export class Config implements IInitable {
     );
     this.defaultRawValue = this.options?.defaultRawValue || '';
     this.defaultValue = this.options?.defaultValue || '';
+    this.inputSize = this.mask.length;
+  }
+
+  public updateMask(mask: TMask): void {
+    this.mask = mask;
+    this.inputSize = mask.length;
   }
 
   private static preparePlaceholder(value?: string): string {

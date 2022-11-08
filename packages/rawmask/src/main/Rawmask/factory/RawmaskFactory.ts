@@ -41,7 +41,7 @@ export class RawmaskFactory {
       charsStringifier,
       charsValueModifier,
     );
-    const selectionRange = new SelectionRange(this.$input, chars);
+    const selectionRange = new SelectionRange(this.$input, config);
     const changer = new InputChanger(this.$input, chars, selectionRange);
     const listeners = new InputListeners(this.$input, selectionRange, changer);
 
