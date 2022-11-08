@@ -1,6 +1,5 @@
 import { createRawmask } from '../main';
-
-const createInput = (): HTMLInputElement => document.createElement('input');
+import { createInput } from './utils/createInput';
 
 describe('Initialing input', () => {
   test('should format initial value', () => {

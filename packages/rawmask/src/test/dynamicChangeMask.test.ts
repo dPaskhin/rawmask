@@ -2,15 +2,7 @@ import userEvent from '@testing-library/user-event';
 
 import { createRawmask } from '../main';
 import { clickOnInput } from './utils/clickOnInput';
-
-// TODO: create util
-const createInput = (): HTMLInputElement => {
-  const $input = document.createElement('input');
-
-  document.body.prepend($input);
-
-  return $input;
-};
+import { createInput } from './utils/createInput';
 
 describe('Dynamic change mask', () => {
   test('should change mask', async () => {

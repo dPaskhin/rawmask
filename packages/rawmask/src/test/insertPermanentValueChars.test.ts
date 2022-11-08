@@ -2,14 +2,7 @@ import userEvent from '@testing-library/user-event';
 
 import { createRawmask } from '../main';
 import { clickOnInput } from './utils/clickOnInput';
-
-const createInput = (): HTMLInputElement => {
-  const $input = document.createElement('input');
-
-  document.body.prepend($input);
-
-  return $input;
-};
+import { createInput } from './utils/createInput';
 
 describe('Insert permanent value chars', () => {
   test('should stay not changed value', async () => {

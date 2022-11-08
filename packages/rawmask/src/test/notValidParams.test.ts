@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { createRawmask } from '../main';
 import { TextInputMaskError } from '../main/Common/errors/TextInputMaskError';
-
-const createInput = (): HTMLInputElement => document.createElement('input');
+import { createInput } from './utils/createInput';
 
 describe('Initialize with not valid params', () => {
   test('without params at all', () => {
