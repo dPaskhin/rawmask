@@ -151,6 +151,7 @@ export class InputChanger {
     return this.getActualCursorPositionAfterDelete(curCursorPosition);
   }
 
+  // TODO: replace to Chars
   private getActualCursorPositionAfterInsert(
     prevCursorPosition: number,
     lastInsertedChar?: IChar,

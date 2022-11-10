@@ -3,12 +3,6 @@ import type { TDirection } from '../../Common/types/TDirection';
 import type { IChar } from '../types/IChar';
 
 export class CharsPreparer {
-  private readonly FORMAT_CHARS: Partial<Record<string, RegExp>> = {
-    '9': /\d/,
-    a: /[A-Za-z]/,
-    '*': /./,
-  };
-
   public constructor(private readonly inputConfig: Config) {}
 
   public prepare(): IChar[] {
@@ -25,7 +19,7 @@ export class CharsPreparer {
   }
 
   private basePrepare(): IChar[] {
-    return [...this.inputConfig.mask].map((maskChar, idx) => {
+    return this.inputConfig.mask.map((maskChar, idx) => {
       if (maskChar instanceof RegExp) {
         return {
           index: idx,
@@ -36,7 +30,17 @@ export class CharsPreparer {
         };
       }
 
-      const charRegexp = this.FORMAT_CHARS[maskChar];
+      if (maskChar[0] === '\\') {
+        return {
+          index: idx,
+          value: maskChar[1],
+          regexp: undefined,
+          permanent: true,
+          nearChangeable: {},
+        };
+      }
+
+      const charRegexp = this.inputConfig.FORMAT_CHARS[maskChar];
       const permanent = !charRegexp;
 
       return {

@@ -1,7 +1,14 @@
 import type { IRawmaskOptions, TMask } from 'rawmask';
 import type { IInitable } from '../Common/types/utils/IInitable';
+import { TDetailedMask } from '../Common/types/TMask';
 
 export class Config implements IInitable {
+  public readonly FORMAT_CHARS: Partial<Record<string, RegExp>> = {
+    '9': /\d/,
+    a: /[A-Za-z]/,
+    '*': /./,
+  };
+
   public maskPlaceholder!: string;
 
   public defaultRawValue!: string;
@@ -10,7 +17,11 @@ export class Config implements IInitable {
 
   public inputSize!: number;
 
-  public constructor(public mask: TMask, private options?: IRawmaskOptions) {}
+  public mask!: TDetailedMask;
+
+  public constructor(mask: TMask, private options?: IRawmaskOptions) {
+    this.mask = Config.prepareMask(mask);
+  }
 
   public init(): void {
     this.maskPlaceholder = Config.preparePlaceholder(
@@ -22,7 +33,7 @@ export class Config implements IInitable {
   }
 
   public updateMask(mask: TMask): void {
-    this.mask = mask;
+    this.mask = Config.prepareMask(mask);
     this.inputSize = mask.length;
   }
 
@@ -36,5 +47,28 @@ export class Config implements IInitable {
     }
 
     return value;
+  }
+
+  private static prepareMask(mask: TMask): TDetailedMask {
+    if (typeof mask !== 'string') {
+      return mask;
+    }
+
+    const prepared: TDetailedMask = [];
+
+    for (let i = 0; i < mask.length; i += 1) {
+      const char = mask[i];
+
+      if (char === '\\') {
+        i += 1;
+        prepared.push(`\\${mask[i]}`);
+
+        continue;
+      }
+
+      prepared.push(char);
+    }
+
+    return prepared;
   }
 }

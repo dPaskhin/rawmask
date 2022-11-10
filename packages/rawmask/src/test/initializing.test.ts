@@ -32,7 +32,7 @@ describe('Initialing input', () => {
     expect($spaceInput.value).toEqual('+7 (');
   });
 
-  test('should format initial value with default value', () => {
+  test('should format initial value with default raw value', () => {
     const $starInput = createInput();
     const $spaceInput = createInput();
     const $inputArrayMask = createInput();
@@ -74,7 +74,7 @@ describe('Initialing input', () => {
     expect($halfInput.value).toEqual('+7 (999) 99_-__-__');
   });
 
-  test('should format initial value with default value with wrong chars', () => {
+  test('should format initial value with default raw value with wrong chars', () => {
     const $input = createInput();
 
     createRawmask($input, '+7 (999) 999-99-99', {

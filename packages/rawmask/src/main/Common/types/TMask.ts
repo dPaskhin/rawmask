@@ -1,1 +1,3 @@
-export type TMask = string | Array<string | RegExp>;
+export type TDetailedMask = Array<string | RegExp>;
+
+export type TMask = string | TDetailedMask;
