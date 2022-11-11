@@ -28,13 +28,27 @@ describe('Apply same value', () => {
 
     expect($input.value).toEqual('+7 (__1) 234-__-__');
   });
-
   test('apply value while change', async () => {
     const mask = '+7 (999) 999-99-99';
     const { node: $input, rerender } = await createInput({
       mask,
       onChange: (event) => {
         rerender({ mask, value: event.target.value });
+      },
+    });
+
+    await clickOnInput($input, 6);
+
+    await userEvent.keyboard('1234');
+
+    expect($input.value).toEqual('+7 (__1) 234-__-__');
+  });
+  test('apply raw value while change', async () => {
+    const mask = '+7 (999) 999-99-99';
+    const { node: $input, rerender } = await createInput({
+      mask,
+      onChangeRawValue: (value) => {
+        rerender({ mask, rawValue: value });
       },
     });
 

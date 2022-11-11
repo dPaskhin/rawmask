@@ -14,8 +14,9 @@ export interface IRawmaskProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, 'defaultValue'>,
     IRawmaskOptions {
   mask: TMask;
-  rawValue?: string;
   value?: string;
+  rawValue?: string;
+  onChangeRawValue?: (value: string) => void;
 }
 
 export const Rawmask: FC<IRawmaskProps> = ({
@@ -26,6 +27,7 @@ export const Rawmask: FC<IRawmaskProps> = ({
   value,
   onChange,
   rawValue,
+  onChangeRawValue,
   ...props
 }) => {
   const ref = useRef<HTMLInputElement>(null);
@@ -74,6 +76,14 @@ export const Rawmask: FC<IRawmaskProps> = ({
       };
 
       onChange(changeEvent);
+    });
+
+    return () => rawmaskRef.current?.off('input');
+  }, [onChange]);
+
+  useEffect(() => {
+    rawmaskRef.current?.on('input', (masked) => {
+      onChangeRawValue?.(masked.rawValue);
     });
 
     return () => rawmaskRef.current?.off('input');
