@@ -4,6 +4,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import html from '@rollup/plugin-html';
 import replace from '@rollup/plugin-replace';
 import serve from 'rollup-plugin-serve';
+import sourcemaps from 'rollup-plugin-sourcemaps';
 
 const fileName = 'index.js';
 
@@ -13,8 +14,10 @@ export default {
     file: `./example/dist/${fileName}`,
     format: 'es',
     name: 'example',
+    sourcemap: true,
   },
   plugins: [
+    sourcemaps(),
     nodeResolve({ extensions: ['.ts', '.tsx'] }),
     babel({
       babelHelpers: 'bundled',
