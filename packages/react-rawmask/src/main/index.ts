@@ -44,14 +44,22 @@ export const Rawmask: FC<IRawmaskProps> = ({
   }, [mask, maskPlaceholder, defaultValue, defaultRawValue]);
 
   useEffect(() => {
-    if (!rawmaskRef.current) {
-      return;
+    if (rawmaskRef.current) {
+      rawmaskRef.current.mask = mask;
     }
+  }, [mask]);
 
-    rawmaskRef.current.mask = mask;
-    rawmaskRef.current.value = value || rawmaskRef.current.value;
-    rawmaskRef.current.rawValue = rawValue || rawmaskRef.current.rawValue;
-  }, [mask, value, rawValue]);
+  useEffect(() => {
+    if (rawmaskRef.current) {
+      rawmaskRef.current.value = value || rawmaskRef.current.value;
+    }
+  }, [value]);
+
+  useEffect(() => {
+    if (rawmaskRef.current) {
+      rawmaskRef.current.rawValue = rawValue || rawmaskRef.current.rawValue;
+    }
+  }, [rawValue]);
 
   useEffect(() => {
     rawmaskRef.current?.on('input', (masked, event) => {
