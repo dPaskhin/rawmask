@@ -1,6 +1,6 @@
 import userEvent from '@testing-library/user-event';
 
-import { clickOnInput } from './utils/clickOnInput';
+import { clickOn } from './utils/clickOn';
 import { createInput } from './utils/createInput';
 
 describe('Apply same value', () => {
@@ -8,7 +8,7 @@ describe('Apply same value', () => {
     const mask = '+7 (999) 999-99-99';
     const { node: $input, rerender } = await createInput({ mask });
 
-    await clickOnInput($input, 6);
+    await clickOn($input, 6);
 
     await userEvent.keyboard('1234');
 
@@ -20,7 +20,7 @@ describe('Apply same value', () => {
     const mask = '+7 (999) 999-99-99';
     const { node: $input, rerender } = await createInput({ mask });
 
-    await clickOnInput($input, 6);
+    await clickOn($input, 6);
 
     await userEvent.keyboard('1234');
 
@@ -37,7 +37,7 @@ describe('Apply same value', () => {
       },
     });
 
-    await clickOnInput($input, 6);
+    await clickOn($input, 6);
 
     await userEvent.keyboard('1234');
 
@@ -52,7 +52,7 @@ describe('Apply same value', () => {
       },
     });
 
-    await clickOnInput($input, 6);
+    await clickOn($input, 6);
 
     await userEvent.keyboard('1234');
 

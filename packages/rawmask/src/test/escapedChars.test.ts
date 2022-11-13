@@ -2,7 +2,7 @@ import userEvent from '@testing-library/user-event';
 
 import { createRawmask } from '../main';
 import { createInput } from './utils/createInput';
-import { clickOnInput } from './utils/clickOnInput';
+import { clickOn } from './utils/clickOn';
 
 describe('Escaped chars', () => {
   test('should format initial value', () => {
@@ -50,7 +50,7 @@ describe('Escaped chars', () => {
 
     const rawmask = createRawmask($input, '+\\9\\98 (99) 999-99-99');
 
-    await clickOnInput($input, 5);
+    await clickOn($input, 5);
 
     await userEvent.keyboard('1234');
 

@@ -1,6 +1,6 @@
 import userEvent from '@testing-library/user-event';
 
-export const clickOnInput = async (
+export const clickOn = async (
   $input: HTMLInputElement,
   cursorPosition = 0,
 ): Promise<void> => {

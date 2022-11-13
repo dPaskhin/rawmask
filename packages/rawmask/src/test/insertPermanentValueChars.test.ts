@@ -1,7 +1,7 @@
 import userEvent from '@testing-library/user-event';
 
 import { createRawmask } from '../main';
-import { clickOnInput } from './utils/clickOnInput';
+import { clickOn } from './utils/clickOn';
 import { createInput } from './utils/createInput';
 
 describe('Insert permanent value chars', () => {
@@ -10,15 +10,15 @@ describe('Insert permanent value chars', () => {
 
     createRawmask($input, '12+999');
 
-    await clickOnInput($input);
+    await clickOn($input);
 
     await userEvent.keyboard('1');
 
-    await clickOnInput($input, 1);
+    await clickOn($input, 1);
 
     await userEvent.keyboard('2');
 
-    await clickOnInput($input, 2);
+    await clickOn($input, 2);
 
     await userEvent.keyboard('+');
 

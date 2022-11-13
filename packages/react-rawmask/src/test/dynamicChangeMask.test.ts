@@ -1,6 +1,6 @@
 import userEvent from '@testing-library/user-event';
 
-import { clickOnInput } from './utils/clickOnInput';
+import { clickOn } from './utils/clickOn';
 import { createInput } from './utils/createInput';
 
 describe('Dynamic change mask', () => {
@@ -9,7 +9,7 @@ describe('Dynamic change mask', () => {
       mask: '+7 (999) 999-99-99',
     });
 
-    await clickOnInput($input, 4);
+    await clickOn($input, 4);
 
     await userEvent.keyboard('1234');
 

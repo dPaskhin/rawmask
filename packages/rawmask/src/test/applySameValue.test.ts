@@ -1,7 +1,7 @@
 import userEvent from '@testing-library/user-event';
 
 import { createRawmask } from '../main';
-import { clickOnInput } from './utils/clickOnInput';
+import { clickOn } from './utils/clickOn';
 import { createInput } from './utils/createInput';
 
 describe('Apply same value', () => {
@@ -10,7 +10,7 @@ describe('Apply same value', () => {
 
     const rawmask = createRawmask($input, '+7 (999) 999-99-99');
 
-    await clickOnInput($input, 6);
+    await clickOn($input, 6);
 
     await userEvent.keyboard('1234');
 
@@ -23,7 +23,7 @@ describe('Apply same value', () => {
 
     const rawmask = createRawmask($input, '+7 (999) 999-99-99');
 
-    await clickOnInput($input, 6);
+    await clickOn($input, 6);
 
     await userEvent.keyboard('1234');
 
@@ -40,7 +40,7 @@ describe('Apply same value', () => {
       rawmask.value = value;
     });
 
-    await clickOnInput($input, 6);
+    await clickOn($input, 6);
 
     await userEvent.keyboard('1234');
 
@@ -55,7 +55,7 @@ describe('Apply same value', () => {
       rawmask.rawValue = rawValue;
     });
 
-    await clickOnInput($input, 6);
+    await clickOn($input, 6);
 
     await userEvent.keyboard('1234');
 
