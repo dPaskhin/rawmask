@@ -18,7 +18,8 @@
     "watch:example": "rollup --config ./rollup.example.config.js --watch",
     "clean:lib": "rimraf './lib' && rimraf './example/dist'",
     "clean:all": "npm run clean:lib && rimraf './node_modules'",
-    "check:lint": "tsc --noEmit && eslint \"./**/*.{ts,js,tsx}\" --fix",
+    "check:lint": "tsc --noEmit && eslint \"./**/*.{ts,js,tsx}\"",
+    "check:lint:fix": "tsc --noEmit && eslint \"./**/*.{ts,js,tsx}\" --fix",
     "check:test": "jest",
     "check:all": "npm run check:lint && npm run check:test"
   },

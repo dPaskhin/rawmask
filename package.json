@@ -7,6 +7,7 @@
     "clean:lib": "npm run clean:lib --workspaces",
     "clean:all": "npm run clean:all --workspaces && rimraf './node_modules'",
     "check:lint": "npm run check:lint --workspaces",
+    "check:lint:fix": "npm run check:lint:fix --workspaces",
     "check:test": "npm run check:test --workspaces",
     "check:all": "npm run check:all --workspaces"
   },
