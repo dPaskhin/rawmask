@@ -1,13 +1,10 @@
 import type { IRawmaskOptions, TMask } from 'rawmask';
 import type { IInitable } from '../Common/types/utils/IInitable';
 import { TDetailedMask } from '../Common/types/TMask';
+import { TFormatChars } from '../Common/types/TFormatChars';
 
 export class Config implements IInitable {
-  public readonly FORMAT_CHARS: Partial<Record<string, RegExp>> = {
-    '9': /\d/,
-    a: /[A-Za-z]/,
-    '*': /./,
-  };
+  public readonly FORMAT_CHARS: TFormatChars;
 
   public maskPlaceholder!: string;
 
@@ -21,6 +18,12 @@ export class Config implements IInitable {
 
   public constructor(mask: TMask, private options?: IRawmaskOptions) {
     this.mask = Config.prepareMask(mask);
+    this.FORMAT_CHARS = {
+      '9': /\d/,
+      a: /[A-Za-z]/,
+      '*': /./,
+      ...options?.formatChars,
+    };
   }
 
   public init(): void {

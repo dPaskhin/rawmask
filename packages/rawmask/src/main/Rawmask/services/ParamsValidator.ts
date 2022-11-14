@@ -1,4 +1,4 @@
-import type { IRawmaskOptions } from 'packages/rawmask/lib';
+import type { IRawmaskOptions } from 'rawmask';
 import { TextInputMaskError } from '../../Common/errors/TextInputMaskError';
 import { BaseType } from '../../Common/enums/BaseType';
 
@@ -32,6 +32,7 @@ export class ParamsValidator {
       maskPlaceholder: BaseType.STRING,
       defaultRawValue: BaseType.STRING,
       defaultValue: BaseType.STRING,
+      formatChars: BaseType.OBJECT,
     };
     const rawmaskOptions: IRawmaskOptions = options;
 

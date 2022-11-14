@@ -104,6 +104,12 @@ describe('Initialize with not valid params', () => {
     ).toThrow(
       new TextInputMaskError('incorrect option "defaultValue" type: number'),
     );
+    expect(() =>
+      // @ts-ignore
+      createRawmask(createInput(), ' ', { formatChars: 123 }),
+    ).toThrow(
+      new TextInputMaskError('incorrect option "formatChars" type: number'),
+    );
   });
 });
 
