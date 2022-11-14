@@ -1,4 +1,4 @@
-import type { IRawmaskOptions, TMask } from 'packages/rawmask/lib';
+import type { TMask, IRawmaskOptions } from 'rawmask';
 import { Rawmask } from '../Rawmask';
 import { Config } from '../../Config/Config';
 import { CharsPreparer } from '../../Chars/services/CharsPreparer';

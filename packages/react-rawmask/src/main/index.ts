@@ -28,6 +28,7 @@ export const Rawmask: FC<IRawmaskProps> = ({
   onChange,
   rawValue,
   onChangeRawValue,
+  formatChars,
   ...props
 }) => {
   const ref = useRef<HTMLInputElement>(null);
@@ -42,8 +43,9 @@ export const Rawmask: FC<IRawmaskProps> = ({
       maskPlaceholder,
       defaultValue,
       defaultRawValue,
+      formatChars,
     });
-  }, [mask, maskPlaceholder, defaultValue, defaultRawValue]);
+  }, [mask, maskPlaceholder, defaultValue, defaultRawValue, formatChars]);
 
   useEffect(() => {
     if (rawmaskRef.current) {
