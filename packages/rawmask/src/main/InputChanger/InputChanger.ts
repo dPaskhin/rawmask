@@ -1,6 +1,5 @@
 import type { Chars } from '../Chars/Chars';
 import type { SelectionRange } from '../SelectionRange/SelectionRange';
-import type { IChar } from '../Chars/types/IChar';
 
 export class InputChanger {
   public constructor(
@@ -93,16 +92,13 @@ export class InputChanger {
 
     const lastInsertedChar = this.chars.insertValue(diff, rangeStart);
 
-    return this.getActualCursorPositionAfterInsert(
-      rangeStart,
-      lastInsertedChar,
-    );
+    return this.chars.getRightChangeableChar(rangeStart, lastInsertedChar);
   }
 
   private processRightDeleteChange(curCursorPosition: number): number {
     this.chars.deleteValue(curCursorPosition);
 
-    return this.getActualCursorPositionAfterDelete(curCursorPosition);
+    return this.chars.getLeftChangeableChar(curCursorPosition);
   }
 
   private processAddedValueChange(
@@ -114,7 +110,7 @@ export class InputChanger {
 
     const lastInsertedChar = this.chars.insertValue(diff, prevCursorPosition);
 
-    return this.getActualCursorPositionAfterInsert(
+    return this.chars.getRightChangeableChar(
       prevCursorPosition,
       lastInsertedChar,
     );
@@ -148,55 +144,6 @@ export class InputChanger {
   ): number {
     this.chars.deleteValue(curCursorPosition, prevCursorPosition);
 
-    return this.getActualCursorPositionAfterDelete(curCursorPosition);
-  }
-
-  // TODO: replace to Chars
-  private getActualCursorPositionAfterInsert(
-    prevCursorPosition: number,
-    lastInsertedChar?: IChar,
-  ): number {
-    if (lastInsertedChar?.nearChangeable.right) {
-      return lastInsertedChar.nearChangeable.right.index;
-    }
-
-    if (lastInsertedChar) {
-      return this.chars.lastChangeableIndex + 1;
-    }
-
-    const prevCursorPositionChar = this.chars.charAt(prevCursorPosition);
-
-    if (!prevCursorPositionChar) {
-      return this.chars.lastChangeableIndex + 1;
-    }
-
-    if (!prevCursorPositionChar.permanent) {
-      return prevCursorPosition;
-    }
-
-    if (prevCursorPositionChar.nearChangeable.right === undefined) {
-      return this.chars.lastChangeableIndex + 1;
-    }
-
-    return prevCursorPositionChar.nearChangeable.right.index;
-  }
-
-  private getActualCursorPositionAfterDelete(
-    curCursorPosition: number,
-  ): number {
-    const lastDeletedChar = this.chars.charAt(curCursorPosition);
-
-    if (!lastDeletedChar) {
-      return this.chars.firstChangeableIndex;
-    }
-
-    if (
-      lastDeletedChar.permanent &&
-      lastDeletedChar.nearChangeable.left === undefined
-    ) {
-      return this.chars.firstChangeableIndex;
-    }
-
-    return curCursorPosition;
+    return this.chars.getLeftChangeableChar(curCursorPosition);
   }
 }
