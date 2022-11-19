@@ -66,6 +66,47 @@ export class Chars implements IInitable {
     this.charsValueChanger.changeAllChars(this.items, value);
   }
 
+  public getRightChangeableChar(position: number, char?: IChar): number {
+    if (char?.nearChangeable.right) {
+      return char.nearChangeable.right.index;
+    }
+
+    if (char) {
+      return this.lastChangeableIndex + 1;
+    }
+
+    // eslint-disable-next-line no-param-reassign
+    char = this.charAt(position);
+
+    if (!char) {
+      return this.lastChangeableIndex + 1;
+    }
+
+    if (!char.permanent) {
+      return position;
+    }
+
+    if (char.nearChangeable.right === undefined) {
+      return this.lastChangeableIndex + 1;
+    }
+
+    return char.nearChangeable.right.index;
+  }
+
+  public getLeftChangeableChar(position: number): number {
+    const char = this.charAt(position);
+
+    if (!char) {
+      return this.firstChangeableIndex;
+    }
+
+    if (char.permanent && char.nearChangeable.left === undefined) {
+      return this.firstChangeableIndex;
+    }
+
+    return position;
+  }
+
   private getFirstChangeableIndex(): number {
     const possibleIndex = this.items.findIndex((char) => !char.permanent);
 
