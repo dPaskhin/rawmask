@@ -13,9 +13,23 @@ import { createSyntheticEvent } from './utils/createSyntheticEvent';
 export interface IRawmaskProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, 'defaultValue'>,
     IRawmaskOptions {
+  /**
+   * Raw mask contains string or array of string/RegExp.
+   */
   mask: TMask;
+  /**
+   * Value of input.
+   */
   value?: string;
+  /**
+   * Raw (unmasked) value of input.
+   */
   rawValue?: string;
+  /**
+   * Change event handler for raw (unmasked) value.
+   *
+   * @param value
+   */
   onChangeRawValue?: (value: string) => void;
 }
 
