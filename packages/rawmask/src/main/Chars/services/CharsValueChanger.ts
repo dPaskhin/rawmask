@@ -89,8 +89,6 @@ export class CharsValueChanger {
 
   /**
    * This method is like a insertValue method but in this case all the chars is changed value.
-   *
-   * TODO: optimize - if value is empty or less than chars length we need to break the loop
    */
   public changeAllChars(chars: IChar[], value: string): void {
     for (const [index, item] of chars.entries()) {
