@@ -60,7 +60,9 @@ describe('Initialize with not valid params', () => {
   test('with no valid mask', () => {
     // @ts-ignore
     expect(() => createRawmask(createInput())).toThrow(
-      new TextInputMaskError('mask should be a string or an array of strings'),
+      new TextInputMaskError(
+        'mask should be a string or an array of strings or RegExp',
+      ),
     );
     expect(() => createRawmask(createInput(), '')).toThrow(
       new TextInputMaskError("mask shouldn't be empty"),
@@ -73,7 +75,7 @@ describe('Initialize with not valid params', () => {
     );
     // @ts-ignore
     expect(() => createRawmask(createInput(), ['', null])).toThrow(
-      new TextInputMaskError('array mask should has only strings'),
+      new TextInputMaskError('array mask should has only strings or RegExp'),
     );
   });
 
