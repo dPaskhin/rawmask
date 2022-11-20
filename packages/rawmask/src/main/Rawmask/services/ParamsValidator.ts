@@ -56,7 +56,7 @@ export class ParamsValidator {
   private static maskValidate(mask: unknown): never | void {
     if (typeof mask !== 'string' && !Array.isArray(mask)) {
       throw new TextInputMaskError(
-        'mask should be a string or an array of strings',
+        'mask should be a string or an array of strings or RegExp',
       );
     }
 
@@ -74,7 +74,9 @@ export class ParamsValidator {
     if (
       !mask.every((item) => typeof item === 'string' || item instanceof RegExp)
     ) {
-      throw new TextInputMaskError('array mask should has only strings');
+      throw new TextInputMaskError(
+        'array mask should has only strings or RegExp',
+      );
     }
   }
 }
