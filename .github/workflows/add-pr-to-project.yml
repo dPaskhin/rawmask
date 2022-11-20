@@ -1,0 +1,16 @@
+name: Add pull requests to Rawmask project
+
+on:
+  pull_request:
+    types:
+      - opened
+
+jobs:
+  add-pr-to-project:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/add-to-project@v0.3.0
+        with:
+          project-url: https://github.com/users/dPaskhin/projects/1
+          github-token: ${{ secrets.add-to-project-pat }}
