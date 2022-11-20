@@ -1,6 +1,9 @@
 name: Add pull requests to Rawmask project
 
-on: [push]
+on:
+  pull_request:
+    types:
+      - opened
 
 jobs:
   add-pr-to-project:
