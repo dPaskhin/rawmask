@@ -9,6 +9,8 @@ jobs:
   add-pr-to-project:
     runs-on: ubuntu-latest
 
+    permissions: write-all
+
     steps:
       - uses: actions/add-to-project@v0.3.0
         with:
