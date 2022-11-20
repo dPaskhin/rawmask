@@ -41,15 +41,7 @@ export class Config implements IInitable {
   }
 
   private static preparePlaceholder(value?: string): string {
-    if (value === undefined) {
-      return '_';
-    }
-
-    if (value === null) {
-      return ' ';
-    }
-
-    return value;
+    return value ?? '_';
   }
 
   private static prepareMask(mask: TMask): TDetailedMask {
