@@ -2,24 +2,11 @@ name: Add pull requests to Rawmask project
 
 on: [push]
 
+permissions: write-all
+
 jobs:
   add-pr-to-project:
     runs-on: ubuntu-latest
-
-    permissions:
-      actions: write
-      checks: write
-      contents: write
-      deployments: write
-      id-token: write
-      issues: write
-      discussions: write
-      packages: write
-      pages: write
-      pull-requests: write
-      repository-projects: write
-      security-events: write
-      statuses: write
 
     steps:
       - uses: actions/add-to-project@v0.3.0
