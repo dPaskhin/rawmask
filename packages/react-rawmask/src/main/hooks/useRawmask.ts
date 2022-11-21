@@ -1,10 +1,4 @@
-import {
-  ChangeEvent,
-  ChangeEventHandler,
-  RefObject,
-  useEffect,
-  useRef,
-} from 'react';
+import { ChangeEvent, RefObject, useEffect, useRef } from 'react';
 import { createRawmask, IRawmask, IRawmaskOptions, TMask } from 'rawmask';
 
 import { createSyntheticEvent } from '../utils/createSyntheticEvent';
@@ -16,8 +10,11 @@ export interface IUseRawmaskParams extends IRawmaskOptions {
   value?: string;
   /**
    * React change event handler.
+   *
+   * @param value
+   * @param event - React change synthetic event.
    */
-  onChange?: ChangeEventHandler<HTMLInputElement>;
+  onChange?: (value: string, event: ChangeEvent<HTMLInputElement>) => void;
   /**
    * Raw (unmasked) value of input.
    */
@@ -25,11 +22,21 @@ export interface IUseRawmaskParams extends IRawmaskOptions {
   /**
    * Change event handler for raw (unmasked) value.
    *
-   * @param value
+   * @param rawValue
+   * @param event - React change synthetic event.
    */
-  onChangeRawValue?: (value: string) => void;
+  onChangeRawValue?: (
+    rawValue: string,
+    event: ChangeEvent<HTMLInputElement>,
+  ) => void;
 }
 
+/**
+ * Hook for separate implement rawmask functionality for custom input components.
+ *
+ * @param mask - Raw mask contains string or array of string/RegExp.
+ * @param params
+ */
 export const useRawmask = (
   mask: TMask,
   params?: IUseRawmaskParams,
@@ -76,7 +83,7 @@ export const useRawmask = (
   }, [params?.rawValue]);
 
   useEffect(() => {
-    rawmaskRef.current?.on('input', (masked, event) => {
+    rawmaskRef.current?.on('input', (rawmask, event) => {
       if (!params?.onChange) {
         return;
       }
@@ -87,15 +94,25 @@ export const useRawmask = (
         target: syntheticEvent.currentTarget,
       };
 
-      params.onChange(changeEvent);
+      params.onChange(rawmask.value, changeEvent);
     });
 
     return () => rawmaskRef.current?.off('input');
   }, [params?.onChange]);
 
   useEffect(() => {
-    rawmaskRef.current?.on('input', (masked) => {
-      params?.onChangeRawValue?.(masked.rawValue);
+    rawmaskRef.current?.on('input', (rawmask, event) => {
+      if (!params?.onChangeRawValue) {
+        return;
+      }
+
+      const syntheticEvent = createSyntheticEvent<HTMLInputElement>(event);
+      const changeEvent: ChangeEvent<HTMLInputElement> = {
+        ...syntheticEvent,
+        target: syntheticEvent.currentTarget,
+      };
+
+      params.onChangeRawValue(rawmask.rawValue, changeEvent);
     });
 
     return () => rawmaskRef.current?.off('input');

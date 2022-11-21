@@ -16,7 +16,9 @@ const CustomReactComponent: FC = () => {
   const [value, setValue] = useState('');
   const ref = useRawmask('+\\9\\98 (99) 999-99-99', {
     value,
-    onChange: (event) => setValue(event.target.value),
+    onChange: (nvalue, event) => {
+      setValue(event.target.value);
+    },
   });
 
   return <UiInput ref={ref} />;
@@ -31,11 +33,7 @@ export const App: FC = () => {
 
       <br />
 
-      <Rawmask
-        mask='+7 (999) 999-99-99'
-        value={value}
-        onChange={(event) => setValue(event.target.value)}
-      />
+      <Rawmask mask='+7 (999) 999-99-99' value={value} onChange={setValue} />
     </>
   );
 };

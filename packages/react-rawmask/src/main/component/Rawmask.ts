@@ -4,7 +4,10 @@ import { TMask } from 'rawmask';
 import { IUseRawmaskParams, useRawmask } from '../hooks/useRawmask';
 
 export interface IRawmaskProps
-  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'defaultValue' | 'value'>,
+  extends Omit<
+      InputHTMLAttributes<HTMLInputElement>,
+      'defaultValue' | 'value' | 'onChange'
+    >,
     IUseRawmaskParams {
   /**
    * Raw mask contains string or array of string/RegExp.
