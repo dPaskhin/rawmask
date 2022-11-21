@@ -32,8 +32,8 @@ describe('Apply same value', () => {
     const mask = '+7 (999) 999-99-99';
     const { node: $input, rerender } = await createInput({
       mask,
-      onChange: (event) => {
-        rerender({ mask, value: event.target.value });
+      onChange: (value) => {
+        rerender({ mask, value });
       },
     });
 
