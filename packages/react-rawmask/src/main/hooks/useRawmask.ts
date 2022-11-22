@@ -121,6 +121,7 @@ export const useRawmask = (
   useEffect(
     () => () => {
       rawmaskRef.current?.destroy();
+      rawmaskRef.current = undefined;
     },
     [],
   );
