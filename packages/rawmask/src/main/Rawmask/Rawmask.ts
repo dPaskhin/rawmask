@@ -4,6 +4,7 @@ import type { InputListeners } from '../InputListeners/InputListeners';
 import type { Config } from '../Config/Config';
 import type { InputChanger } from '../InputChanger/InputChanger';
 import { isMaskEquals } from '../Common/utils/isMaskEquals';
+import { RAWMASK_INPUT_ATTRIBUTE } from '../Common/utils/constants';
 
 export class Rawmask implements IRawmask {
   private $input: HTMLInputElement;
@@ -82,6 +83,7 @@ export class Rawmask implements IRawmask {
   public destroy(): void {
     this.listeners.destroy();
     this.$input.value = '';
+    this.$input.removeAttribute(RAWMASK_INPUT_ATTRIBUTE);
   }
 
   private init(): void {
