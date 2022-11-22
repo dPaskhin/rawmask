@@ -35,7 +35,7 @@ export default {
   <head>
     <title>@rawmask/react</title>
   </head>
-  <body>
+  <body style='background-color: black;'>
     <div id='root'></div>
     <script src='${fileName}'></script>
   </body>
