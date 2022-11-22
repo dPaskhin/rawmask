@@ -33,7 +33,11 @@ export const App: FC = () => {
 
       <br />
 
-      <Rawmask mask='+7 (999) 999-99-99' value={value} onChange={setValue} />
+      <Rawmask
+        mask={['+7 ', '( ', '', '999', ' )', ' 999-', '99-', '99']}
+        value={value}
+        onChange={setValue}
+      />
     </>
   );
 };

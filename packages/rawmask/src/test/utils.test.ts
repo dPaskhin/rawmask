@@ -50,6 +50,34 @@ describe('Utils', () => {
       expect(isMaskEquals([/\d/, /\s/, /d/], [/\d/, /\s/, /d/])).toEqual(true);
       expect(isMaskEquals([/\d/, /\s/, /d/], [/\d/, /\s/, /s/])).toEqual(false);
     });
+
+    test('multiple elements in arrays', () => {
+      expect(
+        isMaskEquals(
+          ['+\\9\\98 ', '( ', '', '99', ' )', ' 999-', '99-', '99'],
+          [
+            '+',
+            '\\9\\98 ',
+            '( ',
+            '9',
+            '9',
+            ' )',
+            ' ',
+            '999',
+            '-',
+            '99-',
+            '9',
+            '9',
+          ],
+        ),
+      ).toEqual(true);
+      expect(
+        isMaskEquals(
+          ['+\\9\\98 ', '( ', '', '99', ' )', ' 999-', '99-', '99'],
+          ['+\\9\\98 ', '(', '', '99', ' )', ' 999-', '99-', '99'],
+        ),
+      ).toEqual(false);
+    });
   });
 
   describe('Is selector valid', () => {

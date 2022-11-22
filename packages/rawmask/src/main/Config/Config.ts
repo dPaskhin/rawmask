@@ -46,7 +46,25 @@ export class Config implements IInitable {
 
   private static prepareMask(mask: TMask): TDetailedMask {
     if (typeof mask !== 'string') {
-      return mask;
+      const prepared: TDetailedMask = [];
+
+      for (const char of mask) {
+        if (char instanceof RegExp) {
+          prepared.push(char);
+
+          continue;
+        }
+
+        if (char.length === 1 || /^\\.$/.test(char)) {
+          prepared.push(char);
+
+          continue;
+        }
+
+        prepared.push(...Config.prepareMask(char));
+      }
+
+      return prepared;
     }
 
     const prepared: TDetailedMask = [];
