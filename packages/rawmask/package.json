@@ -1,7 +1,13 @@
 {
   "name": "rawmask",
   "version": "0.0.0",
-  "description": "Another one vanilla javascript masked input.",
+  "description": "The masked input with ease access to raw (unmasked) value.",
+  "keywords": [
+    "input",
+    "masked",
+    "maskedinput",
+    "vanila-js"
+  ],
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "exports": {
