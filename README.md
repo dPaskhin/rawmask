@@ -75,7 +75,7 @@ interface IRawmaskOptions {
 
 ### `formatChars`
 
-You can change initial format chars with your custom ones. Default:
+You can change initial format chars and add your custom ones. Default:
 
 | Character | Allowed input |
 |:---------:|:-------------:|
@@ -87,8 +87,7 @@ Any format character can be escaped with a backslash.
 
 ### IRawmask
 
-Function `creteRawmask` returns `Rawmask` instance. With it, you can get and set _raw_ (_unmasked_) `rawValue` and _
-masked_ `value` of input, also you can change `mask` dynamically in the runtime. Methods like `on` add `off` allows you
+Function `creteRawmask` returns `Rawmask` instance. With it, you can get and set _raw_ (_unmasked_) `rawValue` and _masked_ `value` of input, also you can change `mask` dynamically in the runtime. Methods like `on` add `off` allow you
 to subscribe and unsubscribe event listeners:
 
 ```ts
