@@ -103,5 +103,5 @@ You can use `Rawmask` component like a native input component - almost all props
 - `onChange` - onChange differs from native one by signature - now this callback has two arguments - first is input's
   value, second is "native" React event object
 
-Also all params from the [hook](https://github.com/dPaskhin/rawmask/tree/master/packages/react-rawmask#Hook) are
+Also, all params from the [hook](https://github.com/dPaskhin/rawmask/tree/master/packages/react-rawmask#Hook) are
 available in the props.

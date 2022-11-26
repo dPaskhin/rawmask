@@ -87,7 +87,7 @@ Any format character can be escaped with a backslash.
 
 ### IRawmask
 
-Function `creteRawmask` returns `IRawmask` instance. With it, you can get and set _raw_ (_unmasked_) `rawValue` and _masked_ `value` of input, also you can change `mask` dynamically in the runtime. Methods like `on` add `off` allow you
+Function `createRawmask` returns `IRawmask` instance. With it, you can get and set _raw_ (_unmasked_) `rawValue` and _masked_ `value` of input, also you can change `mask` dynamically in the runtime. Methods like `on` add `off` allow you
 to subscribe and unsubscribe event listeners:
 
 ```ts
