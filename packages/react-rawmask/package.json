@@ -1,6 +1,6 @@
 {
   "name": "@rawmask/react",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "React plugin for rawmask.",
   "keywords": [
     "input",
@@ -36,7 +36,7 @@
   },
   "homepage": "https://github.com/dPaskhin/rawmask/tree/master/packages/react-rawmask#readme",
   "peerDependencies": {
-    "rawmask": "^0.0.0",
+    "rawmask": "^1.0.0",
     "react": "^16.8.0 || ^17.0.0 || ^18.0.0"
   },
   "devDependencies": {
