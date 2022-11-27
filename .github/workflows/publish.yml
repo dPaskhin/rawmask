@@ -5,11 +5,11 @@ on:
     types: [ created ]
 
 jobs:
-  build:
+  build-workflow:
     uses: ./.github/workflows/build.yml
 
   publish:
-    needs: [ build ]
+    needs: [ build-workflow ]
 
     steps:
       - name: Setup
