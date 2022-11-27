@@ -18,10 +18,14 @@ jobs:
         with:
           registry-url: 'https://registry.npmjs.org'
 
-      - name: Publish
+      - name: Publish base package
         run: |
           cd packages/rawmask
           npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
+
+      - name: Publish react package
         run: |
           cd packages/react-rawmask
           npm publish
