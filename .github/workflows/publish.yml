@@ -19,7 +19,12 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
 
       - name: Publish
-        run: npm publish --workspaces
+        run: |
+          cd packages/rawmask
+          npm publish
+        run: |
+          cd packages/rawmask
+          npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
 
