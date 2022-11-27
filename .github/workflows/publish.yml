@@ -1,0 +1,25 @@
+name: Build
+
+on:
+  release:
+    types: [ created ]
+
+jobs:
+  build:
+    uses: ./.github/workflows/build.yml
+
+  publish:
+    needs: [ build ]
+
+    steps:
+      - name: Setup
+        uses: actions/setup-node@v3
+        with:
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Publish
+        uses: npm run publish --workspaces
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
+
+
