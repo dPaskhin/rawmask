@@ -23,7 +23,7 @@ jobs:
           cd packages/rawmask
           npm publish
         run: |
-          cd packages/rawmask
+          cd packages/react-rawmask
           npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
