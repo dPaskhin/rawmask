@@ -11,9 +11,9 @@
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "exports": {
-    "default": "./lib/index.js",
     "import": "./lib/index.mjs",
-    "require": "./lib/index.cjs"
+    "require": "./lib/index.cjs",
+    "default": "./lib/index.js"
   },
   "files": [
     "lib"
@@ -31,6 +31,10 @@
   },
   "author": "Dmitry Paskhin <d.pasxin@gmail.com>",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dPaskhin/rawmask/issues"
+  },
+  "homepage": "https://github.com/dPaskhin/rawmask/tree/master/packages/react-rawmask#readme",
   "peerDependencies": {
     "rawmask": "^0.0.0",
     "react": "^16.8.0 || ^17.0.0 || ^18.0.0"
