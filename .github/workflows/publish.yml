@@ -18,6 +18,9 @@ jobs:
         with:
           registry-url: 'https://registry.npmjs.org'
 
+      - name: Install modules
+        run: npm ci
+
       - name: Publish
         run: npm publish --workspaces
         env:
